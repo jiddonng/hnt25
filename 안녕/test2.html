@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Artist Carousel with Buttons</title>
+  <style>
+    body { margin: 0; font-family: sans-serif; background: #f5f5f5; }
+    .artist-section {
+    
+      padding: 40px;
+      max-width: 100%;
+      margin: auto;
+    }
+    .artist-section h2 {
+      letter-spacing: 2px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* ── 일차 선택 탭 ── */
+    .day-tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+      gap: 20px;
+    }
+    .day-tab {
+      background: none;
+      border: none;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 10px 15px;
+      transition: all 0.3s ease;
+      color: #666;
+      font-family: sans-serif;
+      letter-spacing: 1px;
+    }
+    .day-tab.active,
+    .day-tab:hover {
+      color: #fc6e22;
+    }
+    .day-tab.active {
+      color: #fc6e22;
+    }
+
+    /* ── 캐러셀 래퍼 ── */
+    .carousel-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+    .carousel-container {
+      display: flex;
+      transition: transform 0.4s ease;
+    }
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px; 
+      height: 50px;
+      background: #aeff00;
+      color: #333;
+      font-size: 20px;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    .carousel-button.prev { left: -25px; }
+    .carousel-button.next { right: -25px; }
+    
+    .carousel-wrapper:hover .carousel-button {
+      opacity: 1;
+    }
+    
+    .carousel-button:hover {
+      background: #c4ff3d;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    /* ── 아이템 ── */
+    .artist-item {
+      flex: 0 0 25%; /* 한 번에 4개 보이기 */
+      box-sizing: border-box;
+      padding: 0 10px;
+    }
+    .artist-card {
+      position: relative; /* overlay 기준 */
+      cursor: pointer;
+      background: #fff;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      margin-bottom: 10px;
+      transition: transform 0.2s;
+    }
+    .artist-card:hover { transform: translateY(-5px); }
+
+    /* 사진 크기 줄이기 */
+    .artist-card img {
+      width: 100%;
+      height: 300px;  /* 300→200px로 축소 */
+      object-fit: cover;
+      display: block;
+    }
+    .artist-card p {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    /* ── 카드 위 오버레이 ── */
+    .artist-card .info-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      padding: 16px;
+      box-sizing: border-box;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .artist-item.active .artist-card .info-overlay {
+      opacity: 1;
+    }
+    .info-overlay h3 { margin: 0 0 8px; font-size: 22px; }
+    .info-overlay .country { font-size: 14px; opacity: 0.8; margin-bottom: 8px; }
+    .info-overlay .albums { font-size: 14px; line-height: 1.4; }
+
+    /* ── 패널 ── */
+    .panel {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.5s ease;
+    }
+    .artist-item.active .panel {
+      max-height: 900px;
+    }
+
+    
+    .embed-container iframe {
+      width: 100%; height: 380px; border: none; 
+    }
+
+    /* ── 일차별 컨테이너 숨김/표시 ── */
+    .day-content {
+      display: none;
+    }
+    .day-content.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="artist-section">
+    <h2>ARTIST</h2>
+
+    <!-- 일차 선택 탭 -->
+    <div class="day-tabs">
+      <button class="day-tab active" data-day="day1">1일차</button>
+      <button class="day-tab" data-day="day2">2일차</button>
+    </div>
+
+    <!-- 1일차 아티스트 -->
+    <div class="day-content active" id="day1">
+      <div class="carousel-wrapper">
+        <button class="carousel-button prev" data-target="day1">&lt;</button>
+        <div class="carousel-container" id="carousel-day1">
+          
+          <div class="artist-item"
+               data-spotify-id="37i9dQZF1DZ06evO3GKOe4"
+               data-artist="Peach Pit"
+               data-country="Canada"
+               data-albums="Being So Normal (2017);From 2 to 3 (2022);Magpie (2024)">
+            <div class="artist-card">
+              <div class="info-overlay">
+                <h3 class="panel-artist"></h3>
+                <div class="country panel-country"></div>
+                <div class="albums panel-albums"></div>
+              </div>
+              <img src="artist1.jpg" alt="Peach Pit">
+              <p>Peach Pit</p>
+            </div>
+            <div class="panel">
+              <div class="embed-container">
+                <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="artist-item"
+               data-spotify-id="37i9dQZF1DZ06evO35pJtB"
+               data-artist="Etham"
+               data-country="Korea"
+               data-albums="Etham (2020);Season (2022);New Wave (2024)">
+            <div class="artist-card">
+              <div class="info-overlay">
+                <h3 class="panel-artist"></h3>
+                <div class="country panel-country"></div>
+                <div class="albums panel-albums"></div>
+              </div>
+              <img src="artist2.jpg" alt="Etham">
+              <p>Adam</p>
+            </div>
+            <div class="panel">
+              <div class="embed-container">
+                <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="artist-item"
+               data-spotify-id="37i9dQZF1DZ06evO3nIRmE"
+               data-artist="Lauv"
+               data-country="USA"
+               data-albums="I met you when I was 18 (2018);~how i'm feeling~ (2020);All 4 Nothing (2022)">
+            <div class="artist-card">
+              <div class="info-overlay">
+                <h3 class="panel-artist"></h3>
+                <div class="country panel-country"></div>
+                <div class="albums panel-albums"></div>
+              </div>
+              <img src="artist3.jpg" alt="Lauv">
+              <p>Lauv</p>
+            </div>
+            <div class="panel">
+              <div class="embed-container">
+                <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="artist-item"
+               data-spotify-id="37i9dQZF1DZ06evO3vpp7B"
+               data-artist="Nerd Connection"
+               data-country="Korea"
+               data-albums="First Connection (2019);Digital Dreams (2021);Nerd Vibes (2023)">
+            <div class="artist-card">
+              <div class="info-overlay">
+                <h3 class="panel-artist"></h3>
+                <div class="country panel-country"></div>
+                <div class="albums panel-albums"></div>
+              </div>
+              <img src="artist4.jpg" alt="Nerd Connection">
+              <p>Nerd Connection</p>
+            </div>
+            <div class="panel">
+              <div class="embed-container">
+                <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="artist-item"
+               data-spotify-id="37i9dQZF1DZ06evO0IHRIt"
+               data-artist="Ha Hyeon Sang"
+               data-country="Korea"
+               data-albums="Nostalgia (2018);Spring Rain (2020);Midnight Stories (2022)">
+            <div class="artist-card">
+              <div class="info-overlay">
+                <h3 class="panel-artist"></h3>
+                <div class="country panel-country"></div>
+                <div class="albums panel-albums"></div>
+              </div>
+              <img src="artist5.jpg" alt="Ha Hyeon Sang">
+              <p>Ha Hyeon Sang</p>
+            </div>
+            <div class="panel">
+              <div class="embed-container">
+                <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="artist-item"
+               data-spotify-id="37i9dQZF1DZ06evO3d8cH4"
+               data-artist="Epic High"
+               data-country="Korea"
+               data-albums="Map of the Soul (2003);Remapping the Human Soul (2007);Sleepless in __________ (2019)">
+            <div class="artist-card">
+              <div class="info-overlay">
+                <h3 class="panel-artist"></h3>
+                <div class="country panel-country"></div>
+                <div class="albums panel-albums"></div>
+              </div>
+              <img src="artist6.jpg" alt="Epic High">
+              <p>Epic High</p>
+            </div>
+            <div class="panel">
+              <div class="embed-container">
+                <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="artist-item"
+               data-spotify-id="37i9dQZF1DZ06evO0arlRh"
+               data-artist="Jang Kiha"
+               data-country="Korea"
+               data-albums="Let's Go To My Star (2008);Cheap Coffee (2011);Panda Bear (2014)">
+            <div class="artist-card">
+              <div class="info-overlay">
+                <h3 class="panel-artist"></h3>
+                <div class="country panel-country"></div>
+                <div class="albums panel-albums"></div>
+              </div>
+              <img src="artist7.jpg" alt="Jang Kiha">
+              <p>Jang Kiha</p>
+            </div>
+            <div class="panel">
+              <div class="embed-container">
+                <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="artist-item"
+               data-spotify-id="37i9dQZF1DZ06evO3fRRKz"
+               data-artist="Hanroro"
+               data-country="Korea"
+               data-albums="Oxygen (2019);Orbit (2021);Origin (2023)">
+            <div class="artist-card">
+              <div class="info-overlay">
+                <h3 class="panel-artist"></h3>
+                <div class="country panel-country"></div>
+                <div class="albums panel-albums"></div>
+              </div>
+              <img src="artist8.jpg" alt="Hanroro">
+              <p>Hanroro</p>
+            </div>
+            <div class="panel">
+              <div class="embed-container">
+                <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <button class="carousel-button next" data-target="day1">&gt;</button>
+      </div>
+    </div>
+
+    <!-- 2일차 아티스트 -->
+    <div class="day-content" id="day2">
+      <div class="carousel-wrapper">
+        <button class="carousel-button prev" data-target="day2">&lt;</button>
+        <div class="carousel-container" id="carousel-day2">
+          
+          <div class="artist-item"
+               data-spotify-id="37i9dQZF1DZ06evO1X6Ic8"
+               data-artist="THE 1975"
+               data-country="UK"
+               data-albums="The 1975 (2013);I Like It When You Sleep (2016);A Brief Inquiry (2018)">
+            <div class="artist-card">
+              <div class="info-overlay">
+                <h3 class="panel-artist"></h3>
+                <div class="country panel-country"></div>
+                <div class="albums panel-albums"></div>
+              </div>
+              <img src="artist9.jpg" alt="THE 1975">
+              <p>THE 1975</p>
+            </div>
+            <div class="panel">
+              <div class="embed-container">
+                <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="artist-item"
+               data-spotify-id="37i9dQZF1DZ06evO0P3UNG"
+               data-artist="Tom Misch"
+               data-country="UK"
+               data-albums="Beat Tape 2 (2016);Geography (2018);What Kinda Music (2020)">
+            <div class="artist-card">
+              <div class="info-overlay">
+                <h3 class="panel-artist"></h3>
+                <div class="country panel-country"></div>
+                <div class="albums panel-albums"></div>
+              </div>
+              <img src="artist10.jpg" alt="Tom Misch">
+              <p>Tom Misch</p>
+            </div>
+            <div class="panel">
+              <div class="embed-container">
+                <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="artist-item"
+               data-spotify-id="37i9dQZF1DZ06evO2cGaUr"
+               data-artist="Summer Salt"
+               data-country="USA"
+               data-albums="Going Native (2014);Happy Camper (2017);Sequoia Moon (2020)">
+            <div class="artist-card">
+              <div class="info-overlay">
+                <h3 class="panel-artist"></h3>
+                <div class="country panel-country"></div>
+                <div class="albums panel-albums"></div>
+              </div>
+              <img src="artist11.jpg" alt="Summer Salt">
+              <p>Summer Salt</p>
+            </div>
+            <div class="panel">
+              <div class="embed-container">
+                <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="artist-item"
+               data-spotify-id="51L7uT4ezFjvjI7KvMkcDH"
+               data-artist="Shinninryu"
+               data-country="Korea"
+               data-albums="Rising Sun (2020);Electric Nights (2022);Future Beats (2024)">
+            <div class="artist-card">
+              <div class="info-overlay">
+                <h3 class="panel-artist"></h3>
+                <div class="country panel-country"></div>
+                <div class="albums panel-albums"></div>
+              </div>
+              <img src="artist12.jpg" alt="Shinninryu">
+              <p>Shinninryu</p>
+            </div>
+            <div class="panel">
+              <div class="embed-container">
+                <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="artist-item"
+               data-spotify-id="37i9dQZF1DZ06evO1nHwLD"
+               data-artist="George"
+               data-country="Korea"
+               data-albums="Debut (2018);Second Chapter (2021);New Horizon (2024)">
+            <div class="artist-card">
+              <div class="info-overlay">
+                <h3 class="panel-artist"></h3>
+                <div class="country panel-country"></div>
+                <div class="albums panel-albums"></div>
+              </div>
+              <img src="artist13.jpg" alt="George">
+              <p>George</p>
+            </div>
+            <div class="panel">
+              <div class="embed-container">
+                <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="artist-item"
+               data-spotify-id="37i9dQZF1DZ06evO0w5OCL"
+               data-artist="Beenzino"
+               data-country="Korea"
+               data-albums="24:26 (2012);Up All Night (2014);The Blind (2016)">
+            <div class="artist-card">
+              <div class="info-overlay">
+                <h3 class="panel-artist"></h3>
+                <div class="country panel-country"></div>
+                <div class="albums panel-albums"></div>
+              </div>
+              <img src="artist14.jpg" alt="Beenzino">
+              <p>Beenzino</p>
+            </div>
+            <div class="panel">
+              <div class="embed-container">
+                <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="artist-item"
+               data-spotify-id="1PskCFY8CZ3sTbZikJUpd7"
+               data-artist="Slom & Sumin"
+               data-country="Korea"
+               data-albums="Collaboration (2020);Smooth Vibes (2022);Electric Dreams (2024)">
+            <div class="artist-card">
+              <div class="info-overlay">
+                <h3 class="panel-artist"></h3>
+                <div class="country panel-country"></div>
+                <div class="albums panel-albums"></div>
+              </div>
+              <img src="artist15.jpg" alt="Slom & Sumin">
+              <p>Slom & Sumin</p>
+            </div>
+            <div class="panel">
+              <div class="embed-container">
+                <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="artist-item"
+               data-spotify-id="37i9dQZF1DZ06evO05nk0r"
+               data-artist="MGFF"
+               data-country="Korea"
+               data-albums="First Mix (2019);Underground (2021);Festival Sounds (2023)">
+            <div class="artist-card">
+              <div class="info-overlay">
+                <h3 class="panel-artist"></h3>
+                <div class="country panel-country"></div>
+                <div class="albums panel-albums"></div>
+              </div>
+              <img src="artist16.jpg" alt="MGFF">
+              <p>MGFF</p>
+            </div>
+            <div class="panel">
+              <div class="embed-container">
+                <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <button class="carousel-button next" data-target="day2">&gt;</button>
+      </div>
+    </div>
+
+  </section>
+
+  <script>
+    // 캐러셀 상태 관리
+    const carouselStates = {
+      day1: 0,
+      day2: 0
+    };
+
+    // 일차 탭 전환
+    document.querySelectorAll('.day-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        // 모든 탭과 컨텐츠 비활성화
+        document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.day-content').forEach(c => c.classList.remove('active'));
+        
+        // 선택된 탭과 컨텐츠 활성화
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.day).classList.add('active');
+        
+        // 모든 활성화된 아티스트 패널 닫기
+        document.querySelectorAll('.artist-item.active').forEach(item => {
+          item.classList.remove('active');
+          item.querySelector('.panel-frame').src = '';
+        });
+      });
+    });
+
+    // 캐러셀 이동 (각 일차별로)
+    document.querySelectorAll('.carousel-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const targetDay = button.dataset.target;
+        const container = document.querySelector(`#carousel-${targetDay}`);
+        
+        if (button.classList.contains('prev')) {
+          // 이전으로 이동
+          if (carouselStates[targetDay] > 0) {
+            carouselStates[targetDay] = 0;
+            container.style.transform = 'translateX(0%)';
+          }
+        } else {
+          // 다음으로 이동
+          if (carouselStates[targetDay] === 0) {
+            carouselStates[targetDay] = 1;
+            container.style.transform = 'translateX(-100%)';
+          }
+        }
+      });
+    });
+
+    // 카드 클릭 → overlay + embed 토글
+    document.querySelectorAll('.artist-item').forEach(item => {
+      const card    = item.querySelector('.artist-card');
+      const frame   = item.querySelector('.panel-frame');
+      const pArtist = item.querySelector('.panel-artist');
+      const pCountry= item.querySelector('.panel-country');
+      const pAlbums = item.querySelector('.panel-albums');
+
+      card.addEventListener('click', () => {
+        if (item.classList.contains('active')) {
+          item.classList.remove('active');
+          frame.src = '';
+          return;
+        }
+        
+        // 모두 닫고
+        document.querySelectorAll('.artist-item.active').forEach(i => {
+          i.classList.remove('active');
+          i.querySelector('.panel-frame').src = '';
+        });
+
+        // 정보 채우고 열기
+        pArtist.innerText  = item.dataset.artist;
+        pCountry.innerText = item.dataset.country;
+        pAlbums.innerHTML  = item.dataset.albums.split(';').join('<br>');
+        frame.src = `https://open.spotify.com/embed/playlist/${item.dataset.spotifyId}`;
+
+        item.classList.add('active');
+      });
+    });
+
+    // 외부 클릭 시 닫기
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.artist-card') && !e.target.closest('.day-tab')) {
+        document.querySelectorAll('.artist-item.active').forEach(i => {
+          i.classList.remove('active');
+          i.querySelector('.panel-frame').src = '';
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

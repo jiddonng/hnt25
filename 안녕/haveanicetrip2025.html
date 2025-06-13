@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HAVE A NICE TRIP 2025</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dongle&family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR:wght@200..900&display=swap');
+
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+      scroll-margin: 50px;
+      overflow-y: scroll;
+      font-family: 'Gothic A1', sans-serif;
+    }
+
+    ::-webkit-scrollbar {
+      width: 14px;
+      background: transparent;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: url('plane-cursor.png') no-repeat center center;
+      background-size: 14px 14px;
+      border: none;
+    }
+    
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 20px 20px;
+      z-index: 300; 
+    }
+
+    
+    #menu-button {
+      color: #ffffff;
+      font-size: 28px;      
+      width: 44px;        
+      height: 44px;         
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      /* z-index: 310; */
+    }
+
+    .logo {
+      font-size: 18px;
+      letter-spacing: 2px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin-top: 20px;
+    }
+
+    .logo img {
+      height: 50px;
+      width: auto;
+    }
+
+    .ticket-button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border: 1px solid #ffffff;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #ffffff;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .ticket-button:hover {
+      background-color: #fc6e22;
+      border-color: #fc6e22;
+      color: #ffffff;
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(252, 110, 34, 0.95); 
+      display: none;           
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+    }
+    #overlay nav ul {
+      list-style: none;
+      text-align: center;
+    }
+    #overlay nav ul li {
+      margin: 20px 0;
+    }
+    #overlay nav ul li a {
+      font-size: 56px;
+      line-height: 1.5;
+      font-weight: bold;
+      color: #ffffff;
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+    #overlay nav ul li a:hover {
+      color: #555;
+    }
+
+
+    main {
+      width: 100%;
+      height: 100%;
+    }
+    section {
+      position: relative;
+      width: 100%;
+      height: 100vh;     
+      scroll-snap-align: start;
+    }
+    .section-inner {
+      height: calc(100vh - 60px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+
+    #home {   
+    <div class="image-gallery">
+      <div class="gallery-item">
+        <img src="festival1.jpg" alt="페스티벌 사진 1" />
+      </div>
+      <div class="gallery-item">
+        <img src="festival2.jpg" alt="페스티벌 사진 2" />
+      </div>
+      <div class="gallery-item">
+        <img src="festival3.jpg" alt="페스티벌 사진 3" />
+      </div>
+      <div class="gallery-item">
+        <img src="festival4.jpg" alt="페스티벌 사진 4" />
+      </div>
+      <div class="gallery-item">
+        <img src="festival5.jpg" alt="페스티벌 사진 5" />
+      </div>
+      <div class="gallery-item">
+        <img src="festival6.jpg" alt="페스티벌 사진 6" />
+      </div>
+      <div class="gallery-item">
+        <img src="festival7.jpg" alt="페스티벌 사진 7" />
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          자동으로 넘어가는 페스티벌 사진
+        </div>
+      </div>
+    </div>
+
+      background-color: #f9f9f9;
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+    }
+    #home::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(249, 249, 249, 0.3); 
+      z-index: 1;
+    }
+    .home-content {
+      position: relative;
+      z-index: 2;
+      width: 90%;
+      max-width: 1200px;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 auto;
+      padding: 0 50px;
+    }
+    .home-title {
+      position: relative;
+      display: flex;
+      line-height: 1.5;
+      height: 300px;
+      width: 200%; 
+      margin-top: 100px;
+      margin-bottom: 100px;
+      margin-left: -120px;
+    }
+
+    .hover-image {
+      position: fixed;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 100;
+      display: none;
+    }
+
+    #image1 {
+      top: 40%;
+      left: 30%;
+      transform: translate(-50%, -50%);
+    }
+    #image2 {
+      top: 50%;
+      right: 20%;
+      transform: translate(0, -50%);
+    }
+    #image3 {
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    #image4 {
+      bottom: 20%;
+      left: 40%;
+      transform: translate(-50%, 0);
+    }
+    #image5 {
+      top: 60%;
+      right: 30%;
+      transform: translate(0, -50%);
+    }
+    #image6 {
+      top: 25%;
+      left: 70%;
+      transform: translate(-50%, -50%);
+    }
+
+    .hover-image img {
+      width: 600px;
+      height: 400px;
+      object-fit: contain;
+    }
+    .hover-image.active {
+      opacity: 1;
+      display: block;
+    }
+
+    .home-title h1 {
+      font-size: 9vw;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #aeff00;
+      position: absolute;
+      opacity: 0.8;
+    }
+    .home-title h1:nth-child(1) { top: 0; left: 0; }
+    .home-title h1:nth-child(2) { top: -20%; left: 33%; }
+    .home-title h1:nth-child(3) { top: 50%; left: 5%; }
+    .home-title h1:nth-child(4) { top: 100%; left: 0%; }
+    .home-title h1:nth-child(5) { top: 70%; left: 25%; }
+    .home-title h1:nth-child(6) { top: 80%; left: 45%; }
+    .home-title h1:nth-child(7) { top: 120%; left: 90%; }
+    .home-title h1:nth-child(8) { top: 140%; left: 105%; }
+    .home-title h1:nth-child(9) { top: 160%; left: 120%; }
+    .home-title h1:nth-child(10) { top: 180%; left: 135%; }
+
+    .artist-list {
+      position: absolute;
+      bottom: 50px;
+      right: 50px;
+      list-style: none;
+      text-align: right;
+      max-height: 100%;
+      overflow-y: auto;
+    }
+    .artist-list li {
+      margin: 8px 0;
+      font-size: 1.2vw;
+      font-weight: 500;
+      letter-spacing: 2px;
+      color: #ffffff;
+    }
+
+    #about {
+  background: #ffffff;
+  padding-top: 60px;
+}
+
+#about .section-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 60px 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+  height: calc(100vh - 60px);
+  gap: 60px;
+}
+
+/* 왼쪽 이미지 갤러리 */
+.image-gallery {
+  width: 45%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(4, 1fr);
+  gap: 20px;
+  height: 80vh;
+}
+
+.gallery-item {
+  border: 2px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f8f8;
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+.gallery-placeholder {
+  color: #0066ff;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  padding: 20px;
+}
+
+/* 오른쪽 텍스트 영역 */
+.about-content {
+  width: 50%;
+  color: #555;
+  line-height: 1.8;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 20px;
+}
+
+.about-content h3 {
+  font-size: 2.5rem;
+  color: #222;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+.about-content p {
+  margin-bottom: 20px;
+}
+
+.about-content .highlight-quote {
+  font-style: italic;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 25px 0;
+  padding-left: 20px;
+  border-left: 4px solid #fc6e22;
+}
+
+.organizers {
+  margin-top: 40px;
+  font-weight: 600;
+  color: #444;
+}
+
+.video-section {
+  margin-top: 50px;
+}
+
+.video-section h4 {
+  color: #0066ff;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.video-link {
+  color: #0066ff;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.video-link:hover {
+  color: #fc6e22;
+  text-decoration: none;
+}
+
+/* 반응형 */
+@media (max-width: 1024px) {
+  #about .section-inner {
+    flex-direction: column;
+    padding: 40px;
+    gap: 40px;
+  }
+  
+  .image-gallery,
+  .about-content {
+    width: 100%;
+  }
+  
+  .image-gallery {
+    height: 50vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .image-gallery {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(8, 1fr);
+    height: 40vh;
+  }
+  
+  .about-content h3 {
+    font-size: 2rem;
+  }
+  
+  .about-content {
+    font-size: 14px;
+  }
+}
+
+    #artist { background-color: #f0f0f0; }
+    #artist .section-inner h2 {
+      font-size: 48px;
+      color: #222;
+    }
+
+    #ticket { background-color: #ffffff; }
+    #ticket .section-inner h2 {
+      font-size: 48px;
+      color: #222;
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <header>
+
+    <div id="menu-button">☰</div>
+
+    <div class="logo">
+      <img src="logo.png" alt="HAVE A NICE TRIP 2025">
+    </div>
+
+    <a href="#ticket" class="ticket-button">TICKET</a>
+  </header>
+
+  <div id="overlay">
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#artist">Artist</a></li>
+        <li><a href="#ticket">Ticket</a></li>
+      </ul>
+    </nav>
+  </div>
+
+
+  <main>
+
+    <section id="home">
+      <div class="section-inner">
+        <div class="home-content">
+          <div class="home-title">
+            <h1 id="text1" data-image="drum.jpg" data-sound="sound_drum.mp3">LET'S</h1>
+            <h1 id="text2" data-image="piano.jpg" data-sound="sound_piano.mp3">NICE</h1>
+            <h1 id="text3" data-image="stage.jpeg" data-sound="sound_vibe.mp3">VIBE</h1>
+            <h1 id="text4" data-image="nice.jpg" data-sound="sound_nice.mp3">TRIP</h1>
+            <h1 id="text5" data-image="guitar.jpg" data-sound="sound_guitar.mp3">GO</h1>
+            <h1 id="text6" data-image="stage2.jpeg" data-sound="sound_band.mp3">MUSIC</h1>
+          </div>
+
+          <div id="image1" class="hover-image">
+            <img src="drum.jpg" alt="Image 1">
+          </div>
+          <div id="image2" class="hover-image">
+            <img src="piano.jpg" alt="Image 2">
+          </div>
+          <div id="image3" class="hover-image">
+            <img src="stage.jpeg" alt="Image 3">
+          </div>
+          <div id="image4" class="hover-image">
+            <img src="nice.jpg" alt="Image 4">
+          </div>
+          <div id="image5" class="hover-image">
+            <img src="guitar.jpg" alt="Image 5">
+          </div>
+          <div id="image6" class="hover-image">
+            <img src="stage2.jpeg" alt="Image 6">
+          </div>
+
+        </div>
+          <ul class="artist-list">
+            <li>Peach pit</li>
+            <li>THE 1975</li>
+            <li>Adam</li>
+            <li>Summer Salt</li>
+            <li>Lauv</li>
+            <li>Tom Misch</li>
+            <li>Nerd Connection</li>
+            <li>Ha Hyeon Sang</li>
+            <li>O.O.O.</li>
+            <li>Slom &amp; Sumin</li>
+            <li>Epic High</li>
+            <li>George</li>
+            <li>Jang Kiha</li>
+            <li>Beenzino</li>
+            <li>MGFF</li>
+            <li>Shinninryu</li>
+          </ul>
+        
+      </div>
+    </section>
+
+    <section id="about">
+        <div class="section-inner">
+          <!-- 슬라이드 갤러리 -->
+          <div class="image-gallery">
+            <div class="gallery-item">
+              <img src="festival1.jpg" alt="페스티벌 사진 1" />
+            </div>
+            <div class="gallery-item">
+              <img src="festival2.jpg" alt="페스티벌 사진 2" />
+            </div>
+            <div class="gallery-item">
+              <img src="festival3.jpg" alt="페스티벌 사진 3" />
+            </div>
+            <div class="gallery-item">
+              <img src="festival4.jpg" alt="페스티벌 사진 4" />
+            </div>
+            <div class="gallery-item">
+              <img src="festival5.jpg" alt="페스티벌 사진 5" />
+            </div>
+            <div class="gallery-item">
+              <img src="festival6.jpg" alt="페스티벌 사진 6" />
+            </div>
+            <div class="gallery-item">
+              <img src="festival7.jpg" alt="페스티벌 사진 7" />
+            </div>
+            <div class="gallery-item">
+              <div class="gallery-placeholder">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-content">
+          <h3>ABOUT</h3>
+          <p>2023년 처음 인사드렸던 'HAVE A NICE TRIP'이 올해도 돌아옵니다.</p>
+          
+          <div class="highlight-quote">
+            "전에 없던 페스티벌 경험"
+          </div>
+          
+          <p>깜짝 놀랄 만큼의 쾌적함과 어디에서도 만난 적 없던 고감도의 큐레이션으로<br />
+             여러분과 다시 만나기를 기다리고 있습니다.</p>
+          
+          <p>음악이라는 가장 각별한 친구와 떠나는 또 하나의 여행,<br />
+             'HAVE A NICE TRIP 2025'에서 뵙겠습니다.</p>
+          
+          <div class="organizers">
+            <p>주관: 민트페이퍼(Mint Paper), 더 볼트(THE VAULT)<br />
+               주최: 주식회사 엠피엠지(MPMG)</p>
+          </div>
+          
+          <div class="video-section">
+            <h4>2024 페스티벌 영상</h4>
+            <a href="#" class="video-link">(유튜브 링크로 재생되었으면 좋겠음)</a>
+          </div>
+        </div>
+      </div>
+    
+
+      </section>
+
+
+    <section id="artist">
+      <div class="section-inner">
+        <h2>ARTIST</h2>
+      </div>
+    </section>
+
+
+    <section id="ticket">
+      <div class="section-inner">
+        <h2>TICKET</h2>
+      </div>
+    </section>
+  </main>
+
+
+  <script>
+    const menuButton = document.getElementById('menu-button');
+    const overlay = document.getElementById('overlay');
+    let menuOpen = false;
+
+    const texts = document.querySelectorAll('.home-title h1');
+    const audioPlayers = new Map(); 
+  
+
+    texts.forEach(text => {
+      const imageId = 'image' + text.id.replace('text', '');
+      const hoverImage = document.getElementById(imageId);
+      
+      text.addEventListener('mouseenter', () => {
+
+        stopAllEffects();
+        
+
+        hoverImage.classList.add('active');
+        
+
+        const soundFile = text.dataset.sound;
+        if (soundFile) {
+          let audio = audioPlayers.get(text.id);
+          if (!audio) {
+            audio = new Audio(soundFile);
+            audioPlayers.set(text.id, audio);
+          }
+          audio.currentTime = 0;
+          audio.play();
+        }
+      });
+
+      text.addEventListener('mouseleave', () => {
+        hoverImage.classList.remove('active');
+        const audio = audioPlayers.get(text.id);
+        if (audio) {
+          audio.pause();
+        }
+      });
+    });
+
+
+    function stopAllEffects() {
+      document.querySelectorAll('.hover-image').forEach(img => {
+        img.classList.remove('active');
+      });
+      audioPlayers.forEach(audio => {
+        audio.pause();
+      });
+    }
+
+
+    menuButton.addEventListener('click', () => {
+      if (!menuOpen) {
+        overlay.style.display = 'flex';
+        menuButton.textContent = '×';  
+        menuOpen = true;
+      } else {
+        overlay.style.display = 'none';
+        menuButton.textContent = '☰'; 
+        menuOpen = false;
+      }
+    });
+
+
+    document.querySelectorAll('#overlay nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        overlay.style.display = 'none';
+        menuButton.textContent = '☰';
+        menuOpen = false;
+      });
+    });
+
+    const galleryItems = document.querySelectorAll('.gallery-item img');
+if (galleryItems.length > 0) {
+  let currentImage = 0;
+  setInterval(() => {
+    galleryItems.forEach((img, index) => {
+      if (index === currentImage) {
+        img.style.opacity = '0.7';
+      } else {
+        img.style.opacity = '1';
+      }
+    });
+    currentImage = (currentImage + 1) % galleryItems.length;
+  }, 2000);
+}
+
+
+    
+  </script>
+</body>
+</html>

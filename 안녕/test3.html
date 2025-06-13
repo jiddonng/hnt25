@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HAVE A NICE TRIP 2025 - Ticket</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dongle&family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR:wght@200..900&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Gothic A1', sans-serif;
+      background-color: #ffffff;
+      color: #222;
+    }
+
+    #ticket {
+      background-color: #ffffff;
+      min-height: 100vh;
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-inner {
+      position: relative;
+      z-index: 2;
+      height: calc(100vh - 60px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 0 50px;
+    }
+
+    .section-inner h2 {
+      font-size: 48px;
+      color: #222;
+      margin-bottom: 30px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+
+    /* 티켓 네비게이션 */
+    .ticket-nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .ticket-nav button {
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 12px 24px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      font-family: 'Gothic A1', sans-serif;
+      letter-spacing: 1px;
+      background: none;
+      border: none;
+      color: #666;
+    }
+
+    .ticket-nav button.active,
+    .ticket-nav button:hover {
+      color: #fc6e22;
+    }
+
+    /* 이벤트 정보 표시 */
+    .event-info {
+      margin-bottom: 20px;
+      text-align: center;
+      padding: 15px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+
+    .event-info.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .event-info h4 {
+      font-size: 20px;
+      color: #fc6e22;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .event-info p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* 캘린더 컨테이너 */
+    #calendar-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .calendar-month {
+      text-align: center;
+      background: white;
+      padding: 20px 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      border: 1px solid #eee;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      flex: 1;
+      min-width: 280px;
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .calendar-month:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .calendar-month h3 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: #333;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .calendar-table {
+      border-collapse: separate;
+      border-spacing: 4px;
+      margin: 0 auto;
+    }
+
+    .calendar-table th {
+      width: 32px;
+      height: 25px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      text-align: center;
+    }
+
+    .calendar-table td {
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+      border-radius: 50%;
+      background-color: #f8f9fa;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      color: #666;
+      border: 1px solid transparent;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .calendar-table td:hover {
+      background-color: #e9ecef;
+      color: #333;
+    }
+
+    .highlight {
+      background-color: #aeff00 !important;
+      color: #333 !important;
+      border-color: #aeff00 !important;
+      font-weight: 700;
+    }
+
+    .trip-day-clicked {
+      background-color: #aeff00 !important;
+      color: #333 !important;
+      border-color: #aeff00 !important;
+      font-weight: 700;
+    }
+
+    /* 말풍선 툴팁 */
+    .tooltip {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+
+    .tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .tooltip.show {
+      opacity: 1;
+      bottom: 45px;
+    }
+
+    .tooltip.trip {
+      background: #fc6e22e6;
+    }
+
+    .tooltip.trip::after {
+      border-top-color: rgba(252, 110, 34, 0.9);
+    }
+
+    .tooltip.daily {
+      background: rgba(174, 255, 0, 0.9);
+      color: #333;
+    }
+
+    .tooltip.daily::after {
+      border-top-color: rgba(174, 255, 0, 0.9);
+    }
+
+    /* 반응형 디자인 */
+    @media (max-width: 1024px) {
+      #calendar-container {
+        gap: 20px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding: 0 20px;
+      }
+      
+      .calendar-month {
+        padding: 25px 15px;
+        min-width: 280px;
+        flex-shrink: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .section-inner {
+        padding: 0 20px;
+      }
+      
+      .section-inner h2 {
+        font-size: 36px;
+        margin-bottom: 40px;
+      }
+      
+      .ticket-nav {
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+      
+      .ticket-nav button {
+        font-size: 16px;
+        padding: 10px 20px;
+      }
+      
+      #calendar-container {
+        gap: 15px;
+        padding: 0 10px;
+      }
+      
+      .calendar-month {
+        min-width: 250px;
+      }
+      
+      .calendar-table td {
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .calendar-month {
+        padding: 20px 10px;
+      }
+      
+      .calendar-table {
+        border-spacing: 3px;
+      }
+      
+      .calendar-table td {
+        width: 26px;
+        height: 26px;
+        line-height: 26px;
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section id="ticket">
+    <div class="section-inner">
+      <h2>TICKET</h2>
+
+      <div class="ticket-nav">
+        <button onclick="showDates('lineup', this)" class="active">Line-up</button>
+        <button onclick="showDates('ticketopen', this)">Ticket Open</button>
+        <button onclick="showDates('day1', this)">1st Day</button>
+        <button onclick="showDates('day2', this)">2nd Day</button>
+      </div>
+
+      <div class="event-info" id="event-info">
+        <h4>이벤트 정보</h4>
+        <p>원하는 항목을 선택하여 일정을 확인해보세요.</p>
+      </div>
+
+      <div id="calendar-container">
+        <div id="calendar-10" class="calendar-month"></div>
+        <div id="calendar-11" class="calendar-month"></div>
+        <div id="calendar-12" class="calendar-month"></div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const eventDates = {
+      lineup: { 
+        "10": [6, 13, 20], 
+        "11": [], 
+        "12": [] 
+      },
+      ticketopen: { 
+        "10": [], 
+        "11": [10, 11], 
+        "12": [] 
+      },
+      day1: { 
+        "10": [], 
+        "11": [], 
+        "12": [27] 
+      },
+      day2: { 
+        "10": [], 
+        "11": [], 
+        "12": [28] 
+      }
+    };
+
+    const eventInfo = {
+      lineup: {
+        title: "라인업 발표",
+        description: "10월 6일, 13일, 20일에 순차적으로 아티스트 라인업이 공개됩니다."
+      },
+      ticketopen: {
+        title: "티켓 오픈",
+        description: "11월 10일과 11일 양일간 티켓 예매가 시작됩니다."
+      },
+      day1: {
+        title: "페스티벌 첫째 날",
+        description: "12월 27일, HAVE A NICE TRIP 2025의 첫 번째 날입니다."
+      },
+      day2: {
+        title: "페스티벌 둘째 날",
+        description: "12월 28일, 페스티벌의 대미를 장식하는 마지막 날입니다."
+      }
+    };
+
+    function createCalendar(month, containerId) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = `<h3>2025년 ${month}월</h3>`;
+
+      let table = document.createElement('table');
+      table.className = 'calendar-table';
+
+      // 요일 헤더 추가
+      let headerRow = document.createElement('tr');
+      const dayHeaders = ['일', '월', '화', '수', '목', '금', '토'];
+      dayHeaders.forEach(day => {
+        const th = document.createElement('th');
+        th.textContent = day;
+        headerRow.appendChild(th);
+      });
+      table.appendChild(headerRow);
+
+      const daysInMonth = month === '10' || month === '12' ? 31 : 30;
+      
+      // 2025년 각 월의 첫 번째 날 요일 (일요일 = 0)
+      const firstDayOfMonth = {
+        '10': 3, // 2025년 10월 1일은 수요일
+        '11': 6, // 2025년 11월 1일은 토요일  
+        '12': 1  // 2025년 12월 1일은 월요일
+      };
+
+      let week = document.createElement('tr');
+      let dayCount = 1;
+
+      // 첫 번째 주의 빈 칸 채우기
+      for (let i = 0; i < firstDayOfMonth[month]; i++) {
+        const emptyCell = document.createElement('td');
+        emptyCell.innerHTML = '&nbsp;';
+        emptyCell.style.visibility = 'hidden';
+        week.appendChild(emptyCell);
+      }
+
+      // 날짜 채우기
+      for (let day = firstDayOfMonth[month]; day < 7; day++) {
+        if (dayCount <= daysInMonth) {
+          const dateCell = document.createElement('td');
+          dateCell.textContent = dayCount;
+          dateCell.id = `date-${month}-${dayCount}`;
+          addDateCellEvents(dateCell, month, dayCount);
+          week.appendChild(dateCell);
+          dayCount++;
+        }
+      }
+      table.appendChild(week);
+
+      // 나머지 주들
+      while (dayCount <= daysInMonth) {
+        week = document.createElement('tr');
+        for (let day = 0; day < 7 && dayCount <= daysInMonth; day++) {
+          const dateCell = document.createElement('td');
+          dateCell.textContent = dayCount;
+          dateCell.id = `date-${month}-${dayCount}`;
+          addDateCellEvents(dateCell, month, dayCount);
+          week.appendChild(dateCell);
+          dayCount++;
+        }
+        // 빈 칸으로 주 채우기
+        while (week.children.length < 7) {
+          const emptyCell = document.createElement('td');
+          emptyCell.innerHTML = '&nbsp;';
+          emptyCell.style.visibility = 'hidden';
+          week.appendChild(emptyCell);
+        }
+        table.appendChild(week);
+      }
+
+      container.appendChild(table);
+    }
+
+    function addDateCellEvents(dateCell, month, dayCount) {
+      // 클릭 이벤트 추가
+      dateCell.addEventListener('click', function() {
+        showTooltip(this, month, dayCount);
+      });
+
+      // 호버 효과 추가 - 모든 이벤트 날짜가 아닌 경우에만
+      dateCell.addEventListener('mouseenter', function() {
+        // 모든 이벤트에서 해당 날짜가 있는지 확인
+        let isAnyEventDate = false;
+        for (const eventType in eventDates) {
+          if (eventDates[eventType][month] && eventDates[eventType][month].includes(dayCount)) {
+            isAnyEventDate = true;
+            break;
+          }
+        }
+        
+        if (!this.classList.contains('highlight') && !this.classList.contains('trip-day-clicked') && !isAnyEventDate) {
+          this.style.background = '#e9ecef';
+          this.style.color = '#333';
+        }
+      });
+
+      dateCell.addEventListener('mouseleave', function() {
+        // 모든 이벤트에서 해당 날짜가 있는지 확인
+        let isAnyEventDate = false;
+        for (const eventType in eventDates) {
+          if (eventDates[eventType][month] && eventDates[eventType][month].includes(dayCount)) {
+            isAnyEventDate = true;
+            break;
+          }
+        }
+        
+        if (!this.classList.contains('highlight') && !this.classList.contains('trip-day-clicked') && !isAnyEventDate) {
+          this.style.background = '';
+          this.style.color = '';
+        }
+      });
+    }
+
+    function showTooltip(element, month, date) {
+      // 기존 툴팁 제거
+      const existingTooltip = document.querySelector('.tooltip');
+      if (existingTooltip) {
+        existingTooltip.remove();
+      }
+
+      // 모든 이벤트 날짜 체크 (선택된 이벤트와 관계없이)
+      let isEventDate = false;
+      
+      // 모든 이벤트에서 해당 날짜가 있는지 확인
+      for (const eventType in eventDates) {
+        if (eventDates[eventType][month] && eventDates[eventType][month].includes(parseInt(date))) {
+          isEventDate = true;
+          break;
+        }
+      }
+      
+      if (isEventDate) {
+        // trip day인 경우에만 색상 변경
+        element.classList.add('trip-day-clicked');
+      }
+      // daily day는 색상 변경하지 않음
+
+      // 툴팁 생성
+      const tooltip = document.createElement('div');
+      tooltip.className = `tooltip ${isEventDate ? 'trip' : 'daily'}`;
+      tooltip.textContent = isEventDate ? 'TRIP DAY' : 'DAILY DAY';
+      
+      element.appendChild(tooltip);
+      
+      // 애니메이션으로 표시
+      setTimeout(() => {
+        tooltip.classList.add('show');
+      }, 10);
+
+      // 3초 후 자동 제거
+      setTimeout(() => {
+        if (tooltip && tooltip.parentNode) {
+          tooltip.classList.remove('show');
+          setTimeout(() => {
+            if (tooltip && tooltip.parentNode) {
+              tooltip.remove();
+            }
+          }, 300);
+        }
+      }, 2000);
+    }
+
+    function showDates(event, button) {
+      // 네비게이션 버튼 활성화
+      document.querySelectorAll('.ticket-nav button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      button.classList.add('active');
+
+      // 모든 클릭된 색상 초기화
+      document.querySelectorAll('.trip-day-clicked').forEach(cell => {
+        cell.classList.remove('trip-day-clicked');
+      });
+
+      // 캘린더 생성 및 하이라이트
+      ['10', '11', '12'].forEach(month => {
+        createCalendar(month, `calendar-${month}`);
+        eventDates[event][month].forEach(date => {
+          const cell = document.getElementById(`date-${month}-${date}`);
+          if (cell) {
+            cell.classList.add('highlight');
+            
+            // 스태거 애니메이션 효과
+            setTimeout(() => {
+              cell.style.animationDelay = `${Math.random() * 0.5}s`;
+            }, 100);
+          }
+        });
+      });
+
+      // 이벤트 정보 업데이트
+      updateEventInfo(event);
+    }
+
+    function updateEventInfo(event) {
+      const infoDiv = document.getElementById('event-info');
+      const info = eventInfo[event];
+      
+      infoDiv.classList.remove('show');
+      
+      setTimeout(() => {
+        infoDiv.innerHTML = `
+          <h4>${info.title}</h4>
+          <p>${info.description}</p>
+        `;
+        infoDiv.classList.add('show');
+      }, 200);
+    }
+
+    // 페이지 로드 시 초기화
+    document.addEventListener('DOMContentLoaded', () => {
+      ['10', '11', '12'].forEach(month => {
+        createCalendar(month, `calendar-${month}`);
+      });
+      
+      // 초기 라인업 표시
+      showDates('lineup', document.querySelector('.ticket-nav button'));
+    });
+
+    // 키보드 네비게이션
+    document.addEventListener('keydown', (e) => {
+      const buttons = document.querySelectorAll('.ticket-nav button');
+      const activeButton = document.querySelector('.ticket-nav button.active');
+      const currentIndex = Array.from(buttons).indexOf(activeButton);
+      
+      if (e.key === 'ArrowLeft' && currentIndex > 0) {
+        e.preventDefault();
+        buttons[currentIndex - 1].click();
+      } else if (e.key === 'ArrowRight' && currentIndex < buttons.length - 1) {
+        e.preventDefault();
+        buttons[currentIndex + 1].click();
+      }
+    });
+  </script>
+</body>
+</html>

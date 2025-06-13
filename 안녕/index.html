@@ -1,0 +1,2142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HAVE A NICE TRIP 2025</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dongle&family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR:wght@200..900&display=swap');
+
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+      scroll-margin: 50px;
+      overflow-y: scroll;
+      font-family: 'Gothic A1', sans-serif;
+    }
+
+    ::-webkit-scrollbar {
+      width: 14px;
+      background: transparent;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: url('plane.png') no-repeat center center;
+      background-size: 14px 14px;
+      border: none;
+    }
+    
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 20px 20px;
+      z-index: 300; 
+    }
+
+    
+    #menu-button {
+      color: #ffffff;
+      font-size: 28px;      
+      width: 44px;        
+      height: 44px;         
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .logo {
+      margin-top: 20px;
+    }
+
+    .logo img {
+      height: 50px;
+      width: auto;
+    }
+
+    .ticket-button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border: 1px solid #ffffff;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #ffffff;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .ticket-button:hover {
+      background-color: #fc6e22;
+      border-color: #fc6e22;
+      color: #ffffff;
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #fc6e22;
+      display: none;           
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+    }
+    #overlay nav ul {
+      list-style: none;
+      text-align: center;
+    }
+    #overlay nav ul li {
+      margin: 20px 0;
+    }
+    #overlay nav ul li a {
+      font-size: 56px;
+      line-height: 1.5;
+      font-weight: bold;
+      color: #ffffff;
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+    #overlay nav ul li a:hover {
+      color: #555;
+    }
+
+
+    main {
+      width: 100%;
+      height: 100%;
+    }
+    section {
+      position: relative;
+      width: 100%;
+      height: 100vh;     
+      scroll-snap-align: start;
+    }
+    .section-inner {
+      height: calc(100vh - 60px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+
+    #home {
+      background-color: #f9f9f9;
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+    }
+    #home::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(249, 249, 249, 0.3); 
+      z-index: 1;
+    }
+    .home-content {
+      position: relative;
+      z-index: 2;
+      width: 90%;
+      max-width: 1200px;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 auto;
+      padding: 0 50px;
+    }
+    .home-title {
+      position: relative;
+      display: flex;
+      line-height: 1.5;
+      height: 300px;
+      width: 200%; 
+      margin-top: 100px;
+      margin-bottom: 100px;
+      margin-left: -120px;
+    }
+
+    .hover-image {
+      position: fixed;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 100;
+      display: none;
+    }
+
+    #image1 {
+      top: 40%;
+      left: 30%;
+      transform: translate(-50%, -50%);
+    }
+    #image2 {
+      top: 50%;
+      right: 20%;
+      transform: translate(0, -50%);
+    }
+    #image3 {
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    #image4 {
+      bottom: 20%;
+      left: 40%;
+      transform: translate(-50%, 0);
+    }
+    #image5 {
+      top: 60%;
+      right: 30%;
+      transform: translate(0, -50%);
+    }
+    #image6 {
+      top: 25%;
+      left: 70%;
+      transform: translate(-50%, -50%);
+    }
+
+    .hover-image img {
+      width: 600px;
+      height: 400px;
+      object-fit: contain;
+    }
+    .hover-image.active {
+      opacity: 1;
+      display: block;
+    }
+
+    .home-title h1 {
+      font-size: 9vw;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #aeff00;
+      position: absolute;
+      opacity: 0.8;
+    }
+    .home-title h1:nth-child(1) { top: 0; left: 0; }
+    .home-title h1:nth-child(2) { top: -20%; left: 33%; }
+    .home-title h1:nth-child(3) { top: 50%; left: 5%; }
+    .home-title h1:nth-child(4) { top: 100%; left: 0%; }
+    .home-title h1:nth-child(5) { top: 70%; left: 25%; }
+    .home-title h1:nth-child(6) { top: 80%; left: 45%; }
+
+    .artist-list {
+      position: absolute;
+    
+      bottom: 50px;
+      right: 50px;
+      list-style: none;
+      text-align: right;
+      max-height: 100%;
+      overflow-y: auto;
+    }
+    .artist-list li {
+      margin: 8px 0;
+      font-size: 1.2vw;
+      font-weight: 500;
+      letter-spacing: 2px;
+      color: #ffffff;
+    }
+
+    /* About Section - 인터랙티브 갤러리 통합 */
+    #about {
+        padding-top: 80px;
+      background: rgba(0, 0, 0, 0.8);
+      position: relative;
+      
+    }
+
+    /* 배경 영상 */
+    .background-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.4;
+    }
+
+    .background-video video {
+      width: 100%;
+      height: 100vh;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    .video-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #fc6e22, #aeff00, #0066ff);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      flex-direction: column;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    #about .section-inner {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      background: rgba(47, 47, 47, 0.1);
+      backdrop-filter: blur(3px);
+      padding: 80px 150px;
+      gap: 100px;
+    }
+
+    /* 이미지 갤러리 - 3열 레이아웃 */
+    .image-gallery {
+      width: 40%;
+      display: grid;
+      grid-template-columns: 2.5fr 2fr;
+      grid-template-rows: repeat(4, 1fr);
+      height: 70vh;
+      perspective: 1000px;
+    }
+
+    .large-item {
+      grid-row: span 2;
+    }
+
+
+    .gallery-item {
+      border: 2px solid transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-10px) rotateX(5deg) rotateY(5deg) scale(1.15);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+      border-color: #aeff00;
+      z-index: 10;
+    }
+
+    .gallery-item.clicked {
+      transform: translateY(-15px) rotateX(10deg) rotateY(10deg) scale(1.2);
+      box-shadow: 0 30px 60px rgba(252, 110, 34, 0.5);
+      border-color: #aeff00;
+      animation: pulse 0.6s ease;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translateY(-15px) rotateX(10deg) rotateY(10deg) scale(1.2); }
+      50% { transform: translateY(-15px) rotateX(10deg) rotateY(10deg) scale(1.25); }
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.4s ease;
+      filter: brightness(0.9) contrast(1.1);
+    }
+
+    .gallery-item:hover img {
+      filter: brightness(1.2) contrast(1.3) saturate(1.4);
+      transform: scale(1.1);
+    }
+
+    .gallery-item.clicked img {
+      filter: brightness(1.3) contrast(1.4) saturate(1.6);
+      transform: scale(1.15);
+    }
+
+    /* 이미지 오버레이 효과 */
+    .gallery-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 30%, rgba(174, 255, 0, 0.3) 50%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .gallery-item:hover::before {
+      opacity: 1;
+    }
+
+    /* 활성화된 이미지 강조 */
+    .gallery-item.active {
+      border-color: #aeff00;
+      box-shadow: 0 0 30px rgba(174, 255, 0, 0.6);
+      transform: scale(1.05);
+    }
+
+    .gallery-item.active img {
+      filter: brightness(1.2) saturate(1.3);
+    }
+
+    /* 마우스 따라다니는 효과 */
+    .gallery-item .hover-glow {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(174, 255, 0, 0.9) 0%, transparent 60%);
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    /* 텍스트 영역 */
+    .about-content {
+      width: 50%;
+      color: #ffffff;
+      line-height: 1.8;
+      font-size: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .about-content h3 {
+      font-size: 2.5rem;
+      color: #ffffff;
+      margin-bottom: 30px;
+      font-weight: 700;
+    }
+
+    .about-content p {
+      margin-bottom: 20px;
+    }
+
+    .highlight-quote {
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 25px 0;
+      padding-left: 20px;
+      border-left: 4px solid #aeff00;
+    }
+
+    /* 반응형 */
+    @media (max-width: 1024px) {
+      #about .section-inner {
+        flex-direction: column;
+        gap: 40px;
+        height: auto;
+      }
+      
+      .image-gallery,
+      .about-content {
+        width: 100%;
+      }
+      
+      .image-gallery {
+        height: 50vh;
+        grid-template-columns: 1fr 1fr;
+      }
+      
+      .about-content {
+        padding-right: 100px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .image-gallery {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(10, 1fr);
+        height: 60vh;
+      }
+      
+      .large-item {
+        grid-row: span 2;
+      }
+      
+      .about-content h3 {
+        font-size: 2rem;
+      }
+      
+      .about-content {
+        font-size: 14px;
+      }
+    }
+
+    #artist { 
+      background-color: #303030; 
+      padding: 40px;
+    }
+    
+    /* Artist Section Styles */
+    .artist-section {
+      padding: 40px;
+      max-width: 100%;
+      height: 100vh;
+      margin: auto;
+    }
+    .artist-section h2 {
+      letter-spacing: 2px;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 48px;
+      color: #222;
+    }
+
+    /* ── 일차 선택 탭 ── */
+    .day-tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      gap: 15px;
+    }
+    .day-tab {
+      background: none;
+      border: none;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 10px 15px;
+      transition: all 0.3s ease;
+      color: #666;
+      font-family: sans-serif;
+      letter-spacing: 1px;
+    }
+    .day-tab.active,
+    .day-tab:hover {
+      color: #fc6e22;
+    }
+    .day-tab.active {
+      color: #fc6e22;
+    }
+
+    /* ── 캐러셀 래퍼 ── */
+    .carousel-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+    .carousel-container {
+      display: flex;
+      transition: transform 0.4s ease;
+    }
+
+    .carousel-button {
+  position: absolute;
+  top: calc(50% - 90px); /* 아티스트 이미지 중앙에 맞춤 (180px 높이의 절반만큼 위로) */
+  transform: translateY(-50%);
+  width: 50px; 
+  height: 50px;
+  background: #aeff00 ;
+  color: #333;
+  font-size: 20px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+.carousel-button.prev { left: -25px; } /* -25px에서 10px로 변경 */
+.carousel-button.next { right: -25px; } /* -25px에서 10px로 변경 */
+    .carousel-wrapper:hover .carousel-button {
+      opacity: 1;
+    }
+    
+    .carousel-button:hover {
+      background: #c4ff3d;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    /* ── 아이템 ── */
+    .artist-item {
+      flex: 0 0 25%; /* 한 번에 4개 보이기 */
+      box-sizing: border-box;
+      padding: 0 10px;
+    }
+    .artist-card {
+      position: relative; /* overlay 기준 */
+      cursor: pointer;
+      background: #fff;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      margin-bottom: 10px;
+      transition: transform 0.2s;
+    }
+    .artist-card:hover { transform: translateY(-5px); }
+
+    /* 사진 크기 줄이기 */
+    .artist-card img {
+      width: 100%;
+      height: 180px;  /* 300→200px로 축소 */
+      object-fit: cover;
+      display: block;
+    }
+    .artist-card p {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    /* ── 카드 위 오버레이 ── */
+    .artist-card .info-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      padding: 16px;
+      box-sizing: border-box;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .artist-item.active .artist-card .info-overlay {
+      opacity: 1;
+    }
+    .info-overlay h3 { margin: 0 0 8px; font-size: 22px; }
+    .info-overlay .country { font-size: 14px; opacity: 0.8; margin-bottom: 8px; }
+    .info-overlay .albums { font-size: 14px; line-height: 1.4; }
+
+    /* ── 패널 ── */
+    .panel {
+      overflow: hidden;
+      max-height: 380px;
+      transition: none;
+    }
+
+    
+    .embed-container iframe {
+      width: 100%; height: 380px; border: none; 
+    }
+
+    /* ── 일차별 컨테이너 숨김/표시 ── */
+    .day-content {
+      display: none;
+    }
+    .day-content.active {
+      display: block;
+    }
+
+    /* Ticket Section Styles */
+    #ticket {
+      background: url('bg.jpg') no-repeat center center;
+      min-height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    #ticket::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* 검은색 50% 투명도 */
+  z-index: 1;
+}
+
+    #ticket .section-inner {
+      position: relative;
+      z-index: 2;
+      height: calc(100vh - 60px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 0 50px;
+    }
+
+    #ticket .section-inner h2 {
+      font-size: 48px;
+      color: #222;
+      margin-bottom: 30px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+
+    /* 티켓 네비게이션 */
+    .ticket-nav {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin-bottom: 20px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .ticket-nav button {
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 12px 24px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      font-family: 'Gothic A1', sans-serif;
+      letter-spacing: 1px;
+      background: none;
+      border: none;
+      color: #ffffff;
+    }
+
+    .ticket-nav button.active,
+    .ticket-nav button:hover {
+      color: #fc6e22;
+    }
+
+    /* 이벤트 정보 표시 */
+    .event-info {
+      margin-bottom: 20px;
+      text-align: center;
+      padding: 15px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+
+    .event-info.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .event-info h4 {
+      font-size: 20px;
+      color: #fc6e22;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .event-info p {
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    /* 캘린더 컨테이너 */
+    #calendar-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .calendar-month {
+      text-align: center;
+      background: white;
+      padding: 20px 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      border: 1px solid #eee;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      flex: 1;
+      min-width: 280px;
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .calendar-month:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .calendar-month h3 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: #333;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .calendar-table {
+      border-collapse: separate;
+      border-spacing: 4px;
+      margin: 0 auto;
+    }
+
+    .calendar-table th {
+      width: 32px;
+      height: 25px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      text-align: center;
+    }
+
+    .calendar-table td {
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+      border-radius: 50%;
+      background-color: #f8f9fa;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      color: #666;
+      border: 1px solid transparent;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .calendar-table td:hover {
+      background-color: #e9ecef;
+      color: #333;
+    }
+
+    .highlight {
+      background-color: #aeff00 !important;
+      color: #333 !important;
+      border-color: #aeff00 !important;
+      font-weight: 700;
+    }
+
+    .trip-day-clicked {
+      background-color: #aeff00 !important;
+      color: #333 !important;
+      border-color: #aeff00 !important;
+      font-weight: 700;
+    }
+
+    /* 말풍선 툴팁 */
+    .tooltip {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+
+    .tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .tooltip.show {
+      opacity: 1;
+      bottom: 45px;
+    }
+
+    .tooltip.trip {
+      background: #fc6e22e6;
+    }
+
+    .tooltip.trip::after {
+      border-top-color: rgba(252, 110, 34, 0.9);
+    }
+
+    .tooltip.daily {
+      background: rgba(174, 255, 0, 0.9);
+      color: #333;
+    }
+
+    .tooltip.daily::after {
+      border-top-color: rgba(174, 255, 0, 0.9);
+    }
+
+    /* 반응형 디자인 */
+    @media (max-width: 1024px) {
+      #calendar-container {
+        gap: 20px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding: 0 20px;
+      }
+      
+      .calendar-month {
+        padding: 25px 15px;
+        min-width: 280px;
+        flex-shrink: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      #ticket .section-inner {
+        padding: 20 20px;
+      }
+      
+      #ticket .section-inner h2 {
+        font-size: 36px;
+        margin-bottom: 40px;
+      }
+      
+      .ticket-nav {
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      
+      .ticket-nav button {
+        font-size: 16px;
+        padding: 10px 20px;
+      }
+      
+      #calendar-container {
+        gap: 15px;
+        padding: 0 10px;
+      }
+      
+      .calendar-month {
+        min-width: 250px;
+      }
+      
+      .calendar-table td {
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .calendar-month {
+        padding: 20px 10px;
+      }
+      
+      .calendar-table {
+        border-spacing: 3px;
+      }
+      
+      .calendar-table td {
+        width: 26px;
+        height: 26px;
+        line-height: 26px;
+        font-size: 11px;
+      }
+    }
+/* 티켓 구매 버튼 */
+.ticket-purchase-btn {
+  position: absolute;
+  top: 680px;
+text-align: center;  display: inline-block;
+  padding: 12px 24px;
+  background-color: #fc6e22;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 4px 15px rgba(252, 110, 34, 0.3);
+}
+
+.ticket-purchase-btn:hover {
+  background-color: #aeff00;
+  color: #333;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(174, 255, 0, 0.4);
+}
+
+/* 티켓 섹션 h2 스타일 추가 */
+#ticket .section-inner h2 {
+  font-size: 48px;
+  color: #ffffff;
+  margin-bottom: 30px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+    
+  </style>
+</head>
+
+<body>
+  <header>
+    <div id="menu-button">☰</div>
+    <div class="logo">
+      <img src="logo.png" alt="HAVE A NICE TRIP 2025">
+    </div>
+    <a href="#ticket" class="ticket-button">TICKET</a>
+  </header>
+
+  <div id="overlay">
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#artist">Artist</a></li>
+        <li><a href="#ticket">Ticket</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <main>
+    <section id="home">
+      <div class="section-inner">
+        <div class="home-content">
+          <div class="home-title">
+            <h1 id="text1" data-image="drum.jpg" data-sound="sound_drum.mp3">LET'S</h1>
+            <h1 id="text2" data-image="piano.jpg" data-sound="sound_piano.mp3">NICE</h1>
+            <h1 id="text3" data-image="stage.jpeg" data-sound="sound_vibe.mp3">VIBE</h1>
+            <h1 id="text4" data-image="nice.jpg" data-sound="sound_nice.mp3">TRIP</h1>
+            <h1 id="text5" data-image="guitar.jpg" data-sound="sound_guitar.mp3">GO</h1>
+            <h1 id="text6" data-image="stage2.jpeg" data-sound="sound_band.mp3">MUSIC</h1>
+          </div>
+
+          <div id="image1" class="hover-image">
+            <img src="drum.jpg" alt="Image 1">
+          </div>
+          <div id="image2" class="hover-image">
+            <img src="piano.jpg" alt="Image 2">
+          </div>
+          <div id="image3" class="hover-image">
+            <img src="stage.jpeg" alt="Image 3">
+          </div>
+          <div id="image4" class="hover-image">
+            <img src="nice.jpg" alt="Image 4">
+          </div>
+          <div id="image5" class="hover-image">
+            <img src="guitar.jpg" alt="Image 5">
+          </div>
+          <div id="image6" class="hover-image">
+            <img src="stage2.jpeg" alt="Image 6">
+          </div>
+        </div>
+
+        <ul class="artist-list">
+          <li>Peach pit</li>
+          <li>THE 1975</li>
+          <li>Etham</li>
+          <li>Summer Salt</li>
+          <li>Lauv</li>
+          <li>Tom Misch</li>
+          <li>Nerd Connection</li>
+          <li>Ha Hyeon Sang</li>
+          <li>Hanroro</li>
+          <li>Slom &amp; Sumin</li>
+          <li>Epic High</li>
+          <li>George</li>
+          <li>Jang Kiha</li>
+          <li>Beenzino</li>
+          <li>MGFF</li>
+          <li>Shinninryu</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="about">
+      <!-- 배경 영상 -->
+      <div class="background-video">
+        <video autoplay muted loop playsinline>
+          <source src="festival-video.mp4" type="video/mp4">
+        </video>
+        
+        <div class="video-placeholder">
+          🎵 배경 영상 위치 🎵
+          <small style="font-size: 16px; margin-top: 10px;"></small>
+        </div>
+      </div>
+
+      <div class="section-inner">
+        <!-- 이미지 갤러리 - 3열 레이아웃 -->
+        <div class="image-gallery">
+          <!-- 첫 번째 열 (큰 이미지) -->
+          <div class="gallery-item large-item">
+            <img src="about7.jpg" alt="페스티벌 메인 무대" />
+            <div class="hover-glow"></div>
+          </div>
+          
+          <div class="gallery-item">
+            <img src="about2.jpg" alt="관중들의 열기" />
+            <div class="hover-glow"></div>
+          </div>
+          <div class="gallery-item">
+            <img src="about3.jpg" alt="아티스트 공연" />
+            <div class="hover-glow"></div>
+          </div>
+          <div class="gallery-item">
+            <img src="about6.jpg" alt="음악과 함께하는 순간" />
+            <div class="hover-glow"></div>
+          </div>
+          <div class="gallery-item">
+            <img src="about5.jpg" alt="밤의 페스티벌" />
+            <div class="hover-glow"></div>
+          </div>
+                    <div class="gallery-item third-column-item">
+            <img src="about4.jpg" alt="특별한 순간들" />
+            <div class="hover-glow"></div>
+          </div>
+          <div class="gallery-item third-column-item">
+            <img src="about1.jpg" alt="음악 속 감동" />
+            <div class="hover-glow"></div>
+          </div>
+        </div>
+
+        <!-- 텍스트 영역 -->
+        <div class="about-content">
+          <h3 style="letter-spacing: 2px; margin-bottom: 20px;">ABOUT</h3>
+          <p>2025년 더욱 특별해진 'HAVE A NICE TRIP', 새로운 여행을 시작합니다.        </p>
+          
+          <div class="highlight-quote">
+            음악으로 연결되는 순간들
+          </div>
+          
+          <p>따뜻한 조명 아래에서 울려 퍼지는 멜로디와 함께, 일상을 벗어나 떠나 보세요.
+          
+          <p>음악이 만들어내는 휴양지 같은 분위기 속에서
+            <br> 소중한 사람들과 함께 나누는 특별한 추억을 선사합니다.
+            <br />
+            <br>
+             올해도 여러분과 함께 떠나고 싶은 아름다운 여행,
+             <br>   
+             'HAVE A NICE TRIP 2025'에서 뵙겠습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="artist">
+      <div class="artist-section">
+
+        <!-- 일차 선택 탭 -->
+        <div class="day-tabs">
+          <button class="day-tab active" data-day="day1">1st Day</button>
+          <button class="day-tab" data-day="day2">2nd Day</button>
+        </div>
+
+        <!-- 1일차 아티스트 -->
+        <div class="day-content active" id="day1">
+          <div class="carousel-wrapper">
+            <button class="carousel-button prev" data-target="day1">&lt;</button>
+            <div class="carousel-container" id="carousel-day1">
+              
+              <div class="artist-item"
+                   data-spotify-id="37i9dQZF1DZ06evO3GKOe4"
+                   data-artist="Peach Pit"
+                   data-country="Canada"
+                   data-albums="Being So Normal (2017);From 2 to 3 (2022);Magpie (2024)">
+                <div class="artist-card">
+                  <div class="info-overlay">
+                    <h3 class="panel-artist"></h3>
+                    <div class="country panel-country"></div>
+                    <div class="albums panel-albums"></div>
+                  </div>
+                  <img src="artist1.jpg" alt="Peach Pit">
+                  <p>Peach Pit</p>
+                </div>
+                <div class="panel">
+                  <div class="embed-container">
+                    <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                  </div>
+                </div>
+              </div>
+
+              <div class="artist-item"
+              data-spotify-id="37i9dQZF1DZ06evO35pJtB"
+              data-artist="Etham"
+              data-country="England"
+              data-albums="Etham (2020);Season (2022);New Wave (2024)">
+           <div class="artist-card">
+             <div class="info-overlay">
+               <h3 class="panel-artist"></h3>
+               <div class="country panel-country"></div>
+               <div class="albums panel-albums"></div>
+             </div>
+             <img src="artist2.jpg" alt="Etham">
+             <p>Etham</p>
+           </div>
+           <div class="panel">
+             <div class="embed-container">
+               <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+             </div>
+           </div>
+         </div>
+              
+              <div class="artist-item"
+                   data-spotify-id="37i9dQZF1DZ06evO3nIRmE"
+                   data-artist="Lauv"
+                   data-country="USA"
+                   data-albums="I met you when I was 18 (2018);~how i'm feeling~ (2020);All 4 Nothing (2022)">
+                <div class="artist-card">
+                  <div class="info-overlay">
+                    <h3 class="panel-artist"></h3>
+                    <div class="country panel-country"></div>
+                    <div class="albums panel-albums"></div>
+                  </div>
+                  <img src="artist3.jpg" alt="Lauv">
+                  <p>Lauv</p>
+                </div>
+                <div class="panel">
+                  <div class="embed-container">
+                    <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                  </div>
+                </div>
+              </div>
+
+              <div class="artist-item"
+                   data-spotify-id="37i9dQZF1DZ06evO3vpp7B"
+                   data-artist="Nerd Connection"
+                   data-country="Korea"
+                   data-albums="First Connection (2019);Digital Dreams (2021);Nerd Vibes (2023)">
+                <div class="artist-card">
+                  <div class="info-overlay">
+                    <h3 class="panel-artist"></h3>
+                    <div class="country panel-country"></div>
+                    <div class="albums panel-albums"></div>
+                  </div>
+                  <img src="artist4.jpg" alt="Nerd Connection">
+                  <p>Nerd Connection</p>
+                </div>
+                <div class="panel">
+                  <div class="embed-container">
+                    <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                  </div>
+                </div>
+              </div>
+
+              <div class="artist-item"
+                   data-spotify-id="37i9dQZF1DZ06evO0IHRIt"
+                   data-artist="Ha Hyeon Sang"
+                   data-country="Korea"
+                   data-albums="Nostalgia (2018);Spring Rain (2020);Midnight Stories (2022)">
+                <div class="artist-card">
+                  <div class="info-overlay">
+                    <h3 class="panel-artist"></h3>
+                    <div class="country panel-country"></div>
+                    <div class="albums panel-albums"></div>
+                  </div>
+                  <img src="artist5.jpg" alt="Ha Hyeon Sang">
+                  <p>Ha Hyeon Sang</p>
+                </div>
+                <div class="panel">
+                  <div class="embed-container">
+                    <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                  </div>
+                </div>
+              </div>
+
+              <div class="artist-item"
+                   data-spotify-id="37i9dQZF1DZ06evO3d8cH4"
+                   data-artist="Epic High"
+                   data-country="Korea"
+                   data-albums="Map of the Soul (2003);Remapping the Human Soul (2007);Sleepless in __________ (2019)">
+                <div class="artist-card">
+                  <div class="info-overlay">
+                    <h3 class="panel-artist"></h3>
+                    <div class="country panel-country"></div>
+                    <div class="albums panel-albums"></div>
+                  </div>
+                  <img src="artist6.jpg" alt="Epic High">
+                  <p>Epic High</p>
+                </div>
+                <div class="panel">
+                  <div class="embed-container">
+                    <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                  </div>
+                </div>
+              </div>
+
+              <div class="artist-item"
+                   data-spotify-id="37i9dQZF1DZ06evO0arlRh"
+                   data-artist="Jang Kiha"
+                   data-country="Korea"
+                   data-albums="Let's Go To My Star (2008);Cheap Coffee (2011);Panda Bear (2014)">
+                <div class="artist-card">
+                  <div class="info-overlay">
+                    <h3 class="panel-artist"></h3>
+                    <div class="country panel-country"></div>
+                    <div class="albums panel-albums"></div>
+                  </div>
+                  <img src="artist7.jpg" alt="Jang Kiha">
+                  <p>Jang Kiha</p>
+                </div>
+                <div class="panel">
+                  <div class="embed-container">
+                    <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                  </div>
+                </div>
+              </div>
+
+              <div class="artist-item"
+                   data-spotify-id="37i9dQZF1DZ06evO3fRRKz"
+                   data-artist="Hanroro"
+                   data-country="Korea"
+                   data-albums="Oxygen (2019);Orbit (2021);Origin (2023)">
+                <div class="artist-card">
+                  <div class="info-overlay">
+                    <h3 class="panel-artist"></h3>
+                    <div class="country panel-country"></div>
+                    <div class="albums panel-albums"></div>
+                  </div>
+                  <img src="artist8.jpg" alt="Hanroro">
+                  <p>Hanroro</p>
+                </div>
+                <div class="panel">
+                  <div class="embed-container">
+                    <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <button class="carousel-button next" data-target="day1">&gt;</button>
+          </div>
+        </div>
+
+        <!-- 2일차 아티스트 -->
+        <div class="day-content" id="day2">
+          <div class="carousel-wrapper">
+            <button class="carousel-button prev" data-target="day2">&lt;</button>
+            <div class="carousel-container" id="carousel-day2">
+              
+              <div class="artist-item"
+                   data-spotify-id="37i9dQZF1DZ06evO1X6Ic8"
+                   data-artist="THE 1975"
+                   data-country="UK"
+                   data-albums="The 1975 (2013);I Like It When You Sleep (2016);A Brief Inquiry (2018)">
+                <div class="artist-card">
+                  <div class="info-overlay">
+                    <h3 class="panel-artist"></h3>
+                    <div class="country panel-country"></div>
+                    <div class="albums panel-albums"></div>
+                  </div>
+                  <img src="artist9.jpg" alt="THE 1975">
+                  <p>THE 1975</p>
+                </div>
+                <div class="panel">
+                  <div class="embed-container">
+                    <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                  </div>
+                </div>
+              </div>
+
+              <div class="artist-item"
+                   data-spotify-id="37i9dQZF1DZ06evO0P3UNG"
+                   data-artist="Tom Misch"
+                   data-country="UK"
+                   data-albums="Beat Tape 2 (2016);Geography (2018);What Kinda Music (2020)">
+                <div class="artist-card">
+                  <div class="info-overlay">
+                    <h3 class="panel-artist"></h3>
+                    <div class="country panel-country"></div>
+                    <div class="albums panel-albums"></div>
+                  </div>
+                  <img src="artist10.jpg" alt="Tom Misch">
+                  <p>Tom Misch</p>
+                </div>
+                <div class="panel">
+                  <div class="embed-container">
+                    <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                  </div>
+                </div>
+              </div>
+
+              <div class="artist-item"
+                   data-spotify-id="37i9dQZF1DZ06evO2cGaUr"
+                   data-artist="Summer Salt"
+                   data-country="USA"
+                   data-albums="Going Native (2014);Happy Camper (2017);Sequoia Moon (2020)">
+                <div class="artist-card">
+                  <div class="info-overlay">
+                    <h3 class="panel-artist"></h3>
+                    <div class="country panel-country"></div>
+                    <div class="albums panel-albums"></div>
+                  </div>
+                  <img src="artist11.jpg" alt="Summer Salt">
+                  <p>Summer Salt</p>
+                </div>
+                <div class="panel">
+                  <div class="embed-container">
+                    <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                  </div>
+                </div>
+              </div>
+
+              <div class="artist-item"
+                   data-spotify-id="51L7uT4ezFjvjI7KvMkcDH"
+                   data-artist="Shinninryu"
+                   data-country="Korea"
+                   data-albums="Rising Sun (2020);Electric Nights (2022);Future Beats (2024)">
+                <div class="artist-card">
+                  <div class="info-overlay">
+                    <h3 class="panel-artist"></h3>
+                    <div class="country panel-country"></div>
+                    <div class="albums panel-albums"></div>
+                  </div>
+                  <img src="artist12.jpg" alt="Shinninryu">
+                  <p>Shinninryu</p>
+                </div>
+                <div class="panel">
+                  <div class="embed-container">
+                    <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                  </div>
+                </div>
+              </div>
+
+              <div class="artist-item"
+                   data-spotify-id="37i9dQZF1DZ06evO1nHwLD"
+                   data-artist="George"
+                   data-country="Korea"
+                   data-albums="Debut (2018);Second Chapter (2021);New Horizon (2024)">
+                <div class="artist-card">
+                  <div class="info-overlay">
+                    <h3 class="panel-artist"></h3>
+                    <div class="country panel-country"></div>
+                    <div class="albums panel-albums"></div>
+                  </div>
+                  <img src="artist13.jpg" alt="George">
+                  <p>George</p>
+                </div>
+                <div class="panel">
+                  <div class="embed-container">
+                    <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                  </div>
+                </div>
+              </div>
+
+              <div class="artist-item"
+                   data-spotify-id="37i9dQZF1DZ06evO0w5OCL"
+                   data-artist="Beenzino"
+                   data-country="Korea"
+                   data-albums="24:26 (2012);Up All Night (2014);The Blind (2016)">
+                <div class="artist-card">
+                  <div class="info-overlay">
+                    <h3 class="panel-artist"></h3>
+                    <div class="country panel-country"></div>
+                    <div class="albums panel-albums"></div>
+                  </div>
+                  <img src="artist14.jpg" alt="Beenzino">
+                  <p>Beenzino</p>
+                </div>
+                <div class="panel">
+                  <div class="embed-container">
+                    <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                  </div>
+                </div>
+              </div>
+
+              <div class="artist-item"
+                   data-spotify-id="1PskCFY8CZ3sTbZikJUpd7"
+                   data-artist="Slom & Sumin"
+                   data-country="Korea"
+                   data-albums="Collaboration (2020);Smooth Vibes (2022);Electric Dreams (2024)">
+                <div class="artist-card">
+                  <div class="info-overlay">
+                    <h3 class="panel-artist"></h3>
+                    <div class="country panel-country"></div>
+                    <div class="albums panel-albums"></div>
+                  </div>
+                  <img src="artist15.jpg" alt="Slom & Sumin">
+                  <p>Slom & Sumin</p>
+                </div>
+                <div class="panel">
+                  <div class="embed-container">
+                    <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                  </div>
+                </div>
+              </div>
+
+              <div class="artist-item"
+                   data-spotify-id="37i9dQZF1DZ06evO05nk0r"
+                   data-artist="MGFF"
+                   data-country="Korea"
+                   data-albums="First Mix (2019);Underground (2021);Festival Sounds (2023)">
+                <div class="artist-card">
+                  <div class="info-overlay">
+                    <h3 class="panel-artist"></h3>
+                    <div class="country panel-country"></div>
+                    <div class="albums panel-albums"></div>
+                  </div>
+                  <img src="artist16.jpg" alt="MGFF">
+                  <p>MGFF</p>
+                </div>
+                <div class="panel">
+                  <div class="embed-container">
+                    <iframe class="panel-frame" src="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <button class="carousel-button next" data-target="day2">&gt;</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="ticket">
+      <div class="section-inner">
+
+        <a href="https://nol.interpark.com/ticket" target="_blank" class="ticket-purchase-btn">티켓 예매하기</a>
+
+        <div class="ticket-nav">
+          <button onclick="showDates('lineup', this)" class="active">Line-up</button>
+          <button onclick="showDates('ticketopen', this)">Ticket Open</button>
+          <button onclick="showDates('day1', this)">1st Day</button>
+          <button onclick="showDates('day2', this)">2nd Day</button>
+        </div>
+
+        <div class="event-info" id="event-info">
+          <h4>이벤트 정보</h4>
+          <p>원하는 항목을 선택하여 일정을 확인해보세요.</p>
+        </div>
+
+        <div id="calendar-container">
+          <div id="calendar-10" class="calendar-month"></div>
+          <div id="calendar-11" class="calendar-month"></div>
+          <div id="calendar-12" class="calendar-month"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const menuButton = document.getElementById('menu-button');
+    const overlay = document.getElementById('overlay');
+    let menuOpen = false;
+
+    const texts = document.querySelectorAll('.home-title h1');
+    const audioPlayers = new Map(); 
+
+    texts.forEach(text => {
+      const imageId = 'image' + text.id.replace('text', '');
+      const hoverImage = document.getElementById(imageId);
+      
+      text.addEventListener('mouseenter', () => {
+        stopAllEffects();
+        hoverImage.classList.add('active');
+        
+        const soundFile = text.dataset.sound;
+        if (soundFile) {
+          let audio = audioPlayers.get(text.id);
+          if (!audio) {
+            audio = new Audio(soundFile);
+            audioPlayers.set(text.id, audio);
+          }
+          audio.currentTime = 0;
+          audio.play();
+        }
+      });
+
+      text.addEventListener('mouseleave', () => {
+        hoverImage.classList.remove('active');
+        const audio = audioPlayers.get(text.id);
+        if (audio) {
+          audio.pause();
+        }
+      });
+    });
+
+    function stopAllEffects() {
+      document.querySelectorAll('.hover-image').forEach(img => {
+        img.classList.remove('active');
+      });
+      audioPlayers.forEach(audio => {
+        audio.pause();
+      });
+    }
+
+    menuButton.addEventListener('click', () => {
+      if (!menuOpen) {
+        overlay.style.display = 'flex';
+        menuButton.textContent = '×';  
+        menuOpen = true;
+      } else {
+        overlay.style.display = 'none';
+        menuButton.textContent = '☰'; 
+        menuOpen = false;
+      }
+    });
+
+    document.querySelectorAll('#overlay nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        overlay.style.display = 'none';
+        menuButton.textContent = '☰';
+        menuOpen = false;
+      });
+    });
+
+    // 고급 이미지 갤러리 인터랙션 (About 섹션용)
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    let currentActive = 0;
+
+    // 자동 활성화 순환
+    const autoActivate = () => {
+      galleryItems.forEach(item => item.classList.remove('active'));
+      if (galleryItems[currentActive]) {
+        galleryItems[currentActive].classList.add('active');
+        currentActive = (currentActive + 1) % galleryItems.length;
+      }
+    };
+
+    // 3초마다 자동 활성화
+    setInterval(autoActivate, 3000);
+    autoActivate(); // 초기 실행
+
+    galleryItems.forEach((item, index) => {
+      const img = item.querySelector('img');
+      const hoverGlow = item.querySelector('.hover-glow');
+
+      // 클릭 이벤트 - 임팩트 있는 애니메이션
+      item.addEventListener('click', () => {
+        galleryItems.forEach(otherItem => {
+          otherItem.classList.remove('clicked');
+        });
+        
+        item.classList.add('clicked');
+        
+        setTimeout(() => {
+          item.classList.remove('clicked');
+        }, 600);
+
+        currentActive = index;
+        
+        galleryItems.forEach(otherItem => otherItem.classList.remove('active'));
+        item.classList.add('active');
+      });
+
+      // 마우스 이동 추적 - 글로우 효과
+      item.addEventListener('mousemove', (e) => {
+        const rect = item.getBoundingClientRect();
+        const x = e.clientX - rect.left - 60;
+        const y = e.clientY - rect.top - 60;
+        
+        hoverGlow.style.left = x + 'px';
+        hoverGlow.style.top = y + 'px';
+        hoverGlow.style.opacity = '1';
+      });
+
+      item.addEventListener('mouseleave', () => {
+        hoverGlow.style.opacity = '0';
+      });
+
+      // 마우스 진입 시 3D 기울기 효과
+      item.addEventListener('mousemove', (e) => {
+        const rect = item.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        const rotateX = (e.clientY - centerY) / 10;
+        const rotateY = (centerX - e.clientX) / 10;
+        
+        if (!item.classList.contains('clicked')) {
+          item.style.transform = `translateY(-10px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.15)`;
+        }
+      });
+
+      item.addEventListener('mouseleave', () => {
+        if (!item.classList.contains('clicked')) {
+          item.style.transform = '';
+        }
+      });
+
+      // 더블클릭으로 풀스크린 효과 시뮬레이션
+      item.addEventListener('dblclick', () => {
+        item.style.position = 'fixed';
+        item.style.top = '50%';
+        item.style.left = '50%';
+        item.style.transform = 'translate(-50%, -50%) scale(2.5)';
+        item.style.zIndex = '1000';
+        item.style.transition = 'all 0.5s ease';
+        
+        setTimeout(() => {
+          item.style.position = '';
+          item.style.top = '';
+          item.style.left = '';
+          item.style.transform = '';
+          item.style.zIndex = '';
+          item.style.transition = '';
+        }, 2000);
+      });
+    });
+
+    // 키보드 컨트롤 추가
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        const nextIndex = (currentActive) % galleryItems.length;
+        if (galleryItems[nextIndex]) {
+          galleryItems[nextIndex].click();
+        }
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const prevIndex = (currentActive - 2 + galleryItems.length) % galleryItems.length;
+        if (galleryItems[prevIndex]) {
+          galleryItems[prevIndex].click();
+        }
+      }
+    });
+
+    // 캐러셀 상태 관리
+    const carouselStates = {
+      day1: 0,
+      day2: 0
+    };
+
+    // 일차 탭 전환
+    document.querySelectorAll('.day-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        // 모든 탭과 컨텐츠 비활성화
+        document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.day-content').forEach(c => c.classList.remove('active'));
+        
+        // 선택된 탭과 컨텐츠 활성화
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.day).classList.add('active');
+        
+// 모든 활성화된 아티스트 오버레이 닫기
+document.querySelectorAll('.artist-item.active').forEach(item => {
+  item.classList.remove('active');
+});
+      });
+    });
+
+// 일차 전환 함수 추가
+function switchToDay(dayId) {
+  // 모든 탭 비활성화
+  document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.day-content').forEach(c => c.classList.remove('active'));
+  
+  // 선택된 탭과 컨텐츠 활성화
+  document.querySelector(`[data-day="${dayId}"]`).classList.add('active');
+  document.getElementById(dayId).classList.add('active');
+  
+  // 오버레이 닫기
+  document.querySelectorAll('.artist-item.active').forEach(item => {
+    item.classList.remove('active');
+  });
+}
+
+// 캐러셀 이동 (일차간 연결)
+document.querySelectorAll('.carousel-button').forEach(button => {
+  button.addEventListener('click', () => {
+    const targetDay = button.dataset.target;
+    const container = document.querySelector(`#carousel-${targetDay}`);
+    
+    if (button.classList.contains('prev')) {
+      // 이전으로 이동
+      if (carouselStates[targetDay] > 0) {
+        // 현재 일차의 이전 페이지로
+        carouselStates[targetDay] = 0;
+        container.style.transform = 'translateX(0%)';
+      } else {
+        // 이전 일차의 마지막 페이지로
+        if (targetDay === 'day1') {
+          // 1일차 첫페이지 → 2일차 마지막페이지
+          switchToDay('day2');
+          carouselStates['day2'] = 1;
+          document.querySelector('#carousel-day2').style.transform = 'translateX(-100%)';
+        } else {
+          // 2일차 첫페이지 → 1일차 마지막페이지
+          switchToDay('day1');
+          carouselStates['day1'] = 1;
+          document.querySelector('#carousel-day1').style.transform = 'translateX(-100%)';
+        }
+      }
+    } else {
+      // 다음으로 이동
+      if (carouselStates[targetDay] === 0) {
+        // 현재 일차의 다음 페이지로
+        carouselStates[targetDay] = 1;
+        container.style.transform = 'translateX(-100%)';
+      } else {
+        // 다음 일차의 첫 페이지로
+        if (targetDay === 'day1') {
+          // 1일차 마지막페이지 → 2일차 첫페이지
+          switchToDay('day2');
+          carouselStates['day2'] = 0;
+          document.querySelector('#carousel-day2').style.transform = 'translateX(0%)';
+        } else {
+          // 2일차 마지막페이지 → 1일차 첫페이지
+          switchToDay('day1');
+          carouselStates['day1'] = 0;
+          document.querySelector('#carousel-day1').style.transform = 'translateX(0%)';
+        }
+      }
+    }
+  });
+});
+    
+// 페이지 로드 시 모든 스포티파이 플레이리스트 로드
+document.querySelectorAll('.artist-item').forEach(item => {
+  const card    = item.querySelector('.artist-card');
+  const frame   = item.querySelector('.panel-frame');
+  const pArtist = item.querySelector('.panel-artist');
+  const pCountry= item.querySelector('.panel-country');
+  const pAlbums = item.querySelector('.panel-albums');
+
+  // 페이지 로드 시 정보 채우고 스포티파이 로드
+  pArtist.innerText  = item.dataset.artist;
+  pCountry.innerText = item.dataset.country;
+  pAlbums.innerHTML  = item.dataset.albums.split(';').join('<br>');
+  frame.src = `https://open.spotify.com/embed/playlist/${item.dataset.spotifyId}`;
+
+  // 클릭 시 오버레이만 토글
+  card.addEventListener('click', () => {
+    if (item.classList.contains('active')) {
+      item.classList.remove('active');
+    } else {
+      // 다른 모든 오버레이 닫고
+      document.querySelectorAll('.artist-item.active').forEach(i => {
+        i.classList.remove('active');
+      });
+      item.classList.add('active');
+    }
+  });
+});
+    
+
+// 외부 클릭 시 오버레이만 닫기
+document.addEventListener('click', e => {
+  if (!e.target.closest('.artist-card') && !e.target.closest('.day-tab')) {
+    document.querySelectorAll('.artist-item.active').forEach(i => {
+      i.classList.remove('active');
+    });
+  }
+});
+
+    // 티켓 섹션 기능들
+    const eventDates = {
+      lineup: { 
+        "10": [6, 13, 20], 
+        "11": [], 
+        "12": [] 
+      },
+      ticketopen: { 
+        "10": [], 
+        "11": [10, 11], 
+        "12": [] 
+      },
+      day1: { 
+        "10": [], 
+        "11": [], 
+        "12": [27] 
+      },
+      day2: { 
+        "10": [], 
+        "11": [], 
+        "12": [28] 
+      }
+    };
+
+    const eventInfo = {
+      lineup: {
+        title: "라인업 발표",
+        description: "10월 6일, 13일, 20일에 순차적으로 아티스트 라인업이 공개됩니다."
+      },
+      ticketopen: {
+        title: "티켓 오픈",
+        description: "11월 10일과 11일 양일간 티켓 예매가 시작됩니다."
+      },
+      day1: {
+        title: "페스티벌 첫째 날",
+        description: "12월 27일, HAVE A NICE TRIP 2025의 첫 번째 날입니다."
+      },
+      day2: {
+        title: "페스티벌 둘째 날",
+        description: "12월 28일, 페스티벌의 대미를 장식하는 마지막 날입니다."
+      }
+    };
+
+    function createCalendar(month, containerId) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = `<h3>2025년 ${month}월</h3>`;
+
+      let table = document.createElement('table');
+      table.className = 'calendar-table';
+
+      // 요일 헤더 추가
+      let headerRow = document.createElement('tr');
+      const dayHeaders = ['일', '월', '화', '수', '목', '금', '토'];
+      dayHeaders.forEach(day => {
+        const th = document.createElement('th');
+        th.textContent = day;
+        headerRow.appendChild(th);
+      });
+      table.appendChild(headerRow);
+
+      const daysInMonth = month === '10' || month === '12' ? 31 : 30;
+      
+      // 2025년 각 월의 첫 번째 날 요일 (일요일 = 0)
+      const firstDayOfMonth = {
+        '10': 3, // 2025년 10월 1일은 수요일
+        '11': 6, // 2025년 11월 1일은 토요일  
+        '12': 1  // 2025년 12월 1일은 월요일
+      };
+
+      let week = document.createElement('tr');
+      let dayCount = 1;
+
+      // 첫 번째 주의 빈 칸 채우기
+      for (let i = 0; i < firstDayOfMonth[month]; i++) {
+        const emptyCell = document.createElement('td');
+        emptyCell.innerHTML = '&nbsp;';
+        emptyCell.style.visibility = 'hidden';
+        week.appendChild(emptyCell);
+      }
+
+      // 날짜 채우기
+      for (let day = firstDayOfMonth[month]; day < 7; day++) {
+        if (dayCount <= daysInMonth) {
+          const dateCell = document.createElement('td');
+          dateCell.textContent = dayCount;
+          dateCell.id = `date-${month}-${dayCount}`;
+          addDateCellEvents(dateCell, month, dayCount);
+          week.appendChild(dateCell);
+          dayCount++;
+        }
+      }
+      table.appendChild(week);
+
+      // 나머지 주들
+      while (dayCount <= daysInMonth) {
+        week = document.createElement('tr');
+        for (let day = 0; day < 7 && dayCount <= daysInMonth; day++) {
+          const dateCell = document.createElement('td');
+          dateCell.textContent = dayCount;
+          dateCell.id = `date-${month}-${dayCount}`;
+          addDateCellEvents(dateCell, month, dayCount);
+          week.appendChild(dateCell);
+          dayCount++;
+        }
+        // 빈 칸으로 주 채우기
+        while (week.children.length < 7) {
+          const emptyCell = document.createElement('td');
+          emptyCell.innerHTML = '&nbsp;';
+          emptyCell.style.visibility = 'hidden';
+          week.appendChild(emptyCell);
+        }
+        table.appendChild(week);
+      }
+
+      container.appendChild(table);
+    }
+
+    function addDateCellEvents(dateCell, month, dayCount) {
+      // 클릭 이벤트 추가
+      dateCell.addEventListener('click', function() {
+        showTooltip(this, month, dayCount);
+      });
+
+      // 호버 효과 추가 - 모든 이벤트 날짜가 아닌 경우에만
+      dateCell.addEventListener('mouseenter', function() {
+        // 모든 이벤트에서 해당 날짜가 있는지 확인
+        let isAnyEventDate = false;
+        for (const eventType in eventDates) {
+          if (eventDates[eventType][month] && eventDates[eventType][month].includes(dayCount)) {
+            isAnyEventDate = true;
+            break;
+          }
+        }
+        
+        if (!this.classList.contains('highlight') && !this.classList.contains('trip-day-clicked') && !isAnyEventDate) {
+          this.style.background = '#e9ecef';
+          this.style.color = '#333';
+        }
+      });
+
+      dateCell.addEventListener('mouseleave', function() {
+        // 모든 이벤트에서 해당 날짜가 있는지 확인
+        let isAnyEventDate = false;
+        for (const eventType in eventDates) {
+          if (eventDates[eventType][month] && eventDates[eventType][month].includes(dayCount)) {
+            isAnyEventDate = true;
+            break;
+          }
+        }
+        
+        if (!this.classList.contains('highlight') && !this.classList.contains('trip-day-clicked') && !isAnyEventDate) {
+          this.style.background = '';
+          this.style.color = '';
+        }
+      });
+    }
+
+    function showTooltip(element, month, date) {
+      // 기존 툴팁 제거
+      const existingTooltip = document.querySelector('.tooltip');
+      if (existingTooltip) {
+        existingTooltip.remove();
+      }
+
+      // 모든 이벤트 날짜 체크 (선택된 이벤트와 관계없이)
+      let isEventDate = false;
+      
+      // 모든 이벤트에서 해당 날짜가 있는지 확인
+      for (const eventType in eventDates) {
+        if (eventDates[eventType][month] && eventDates[eventType][month].includes(parseInt(date))) {
+          isEventDate = true;
+          break;
+        }
+      }
+      
+      if (isEventDate) {
+        // trip day인 경우에만 색상 변경
+        element.classList.add('trip-day-clicked');
+      }
+      // daily day는 색상 변경하지 않음
+
+      // 툴팁 생성
+      const tooltip = document.createElement('div');
+      tooltip.className = `tooltip ${isEventDate ? 'trip' : 'daily'}`;
+      tooltip.textContent = isEventDate ? 'TRIP DAY' : 'DAILY DAY';
+      
+      element.appendChild(tooltip);
+      
+      // 애니메이션으로 표시
+      setTimeout(() => {
+        tooltip.classList.add('show');
+      }, 10);
+
+      // 3초 후 자동 제거
+      setTimeout(() => {
+        if (tooltip && tooltip.parentNode) {
+          tooltip.classList.remove('show');
+          setTimeout(() => {
+            if (tooltip && tooltip.parentNode) {
+              tooltip.remove();
+            }
+          }, 300);
+        }
+      }, 2000);
+    }
+
+    function showDates(event, button) {
+      // 네비게이션 버튼 활성화
+      document.querySelectorAll('.ticket-nav button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      button.classList.add('active');
+
+      // 모든 클릭된 색상 초기화
+      document.querySelectorAll('.trip-day-clicked').forEach(cell => {
+        cell.classList.remove('trip-day-clicked');
+      });
+
+      // 캘린더 생성 및 하이라이트
+      ['10', '11', '12'].forEach(month => {
+        createCalendar(month, `calendar-${month}`);
+        eventDates[event][month].forEach(date => {
+          const cell = document.getElementById(`date-${month}-${date}`);
+          if (cell) {
+            cell.classList.add('highlight');
+            
+            // 스태거 애니메이션 효과
+            setTimeout(() => {
+              cell.style.animationDelay = `${Math.random() * 0.5}s`;
+            }, 100);
+          }
+        });
+      });
+
+      // 이벤트 정보 업데이트
+      updateEventInfo(event);
+    }
+
+    function updateEventInfo(event) {
+      const infoDiv = document.getElementById('event-info');
+      const info = eventInfo[event];
+      
+      infoDiv.classList.remove('show');
+      
+      setTimeout(() => {
+        infoDiv.innerHTML = `
+          <h4>${info.title}</h4>
+          <p>${info.description}</p>
+        `;
+        infoDiv.classList.add('show');
+      }, 200);
+    }
+
+    // 페이지 로드 시 초기화
+    document.addEventListener('DOMContentLoaded', () => {
+      ['10', '11', '12'].forEach(month => {
+        createCalendar(month, `calendar-${month}`);
+      });
+      
+      // 초기 라인업 표시
+      showDates('lineup', document.querySelector('.ticket-nav button'));
+    });
+
+    // 키보드 네비게이션
+    document.addEventListener('keydown', (e) => {
+      const buttons = document.querySelectorAll('.ticket-nav button');
+      const activeButton = document.querySelector('.ticket-nav button.active');
+      const currentIndex = Array.from(buttons).indexOf(activeButton);
+      
+      if (e.key === 'ArrowLeft' && currentIndex > 0) {
+        e.preventDefault();
+        buttons[currentIndex - 1].click();
+      } else if (e.key === 'ArrowRight' && currentIndex < buttons.length - 1) {
+        e.preventDefault();
+        buttons[currentIndex + 1].click();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HAVE A NICE TRIP 2025</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dongle&family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR:wght@200..900&display=swap');
+
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+      scroll-margin: 50px;
+      overflow-y: scroll;
+      font-family: 'Gothic A1', sans-serif;
+    }
+
+    ::-webkit-scrollbar {
+      width: 14px;
+      background: transparent;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: url('plane-cursor.png') no-repeat center center;
+      background-size: 14px 14px;
+      border: none;
+    }
+    
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 20px 20px;
+      z-index: 300; 
+    }
+
+    
+    #menu-button {
+      color: #ffffff;
+      font-size: 28px;      
+      width: 44px;        
+      height: 44px;         
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .logo {
+      margin-top: 20px;
+    }
+
+    .logo img {
+      height: 50px;
+      width: auto;
+    }
+
+    .ticket-button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border: 1px solid #ffffff;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #ffffff;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .ticket-button:hover {
+      background-color: #fc6e22;
+      border-color: #fc6e22;
+      color: #ffffff;
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(252, 110, 34, 0.95); 
+      display: none;           
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+    }
+    #overlay nav ul {
+      list-style: none;
+      text-align: center;
+    }
+    #overlay nav ul li {
+      margin: 20px 0;
+    }
+    #overlay nav ul li a {
+      font-size: 56px;
+      line-height: 1.5;
+      font-weight: bold;
+      color: #ffffff;
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+    #overlay nav ul li a:hover {
+      color: #555;
+    }
+
+
+    main {
+      width: 100%;
+      height: 100%;
+    }
+    section {
+      position: relative;
+      width: 100%;
+      height: 100vh;     
+      scroll-snap-align: start;
+    }
+    .section-inner {
+      height: calc(100vh - 60px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+
+    #home {
+      background-color: #f9f9f9;
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+    }
+    #home::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(249, 249, 249, 0.3); 
+      z-index: 1;
+    }
+    .home-content {
+      position: relative;
+      z-index: 2;
+      width: 90%;
+      max-width: 1200px;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 auto;
+      padding: 0 50px;
+    }
+    .home-title {
+      position: relative;
+      display: flex;
+      line-height: 1.5;
+      height: 300px;
+      width: 200%; 
+      margin-top: 100px;
+      margin-bottom: 100px;
+      margin-left: -120px;
+    }
+
+    .hover-image {
+      position: fixed;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 100;
+      display: none;
+    }
+
+    #image1 {
+      top: 40%;
+      left: 30%;
+      transform: translate(-50%, -50%);
+    }
+    #image2 {
+      top: 50%;
+      right: 20%;
+      transform: translate(0, -50%);
+    }
+    #image3 {
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    #image4 {
+      bottom: 20%;
+      left: 40%;
+      transform: translate(-50%, 0);
+    }
+    #image5 {
+      top: 60%;
+      right: 30%;
+      transform: translate(0, -50%);
+    }
+    #image6 {
+      top: 25%;
+      left: 70%;
+      transform: translate(-50%, -50%);
+    }
+
+    .hover-image img {
+      width: 600px;
+      height: 400px;
+      object-fit: contain;
+    }
+    .hover-image.active {
+      opacity: 1;
+      display: block;
+    }
+
+    .home-title h1 {
+      font-size: 9vw;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #aeff00;
+      position: absolute;
+      opacity: 0.8;
+    }
+    .home-title h1:nth-child(1) { top: 0; left: 0; }
+    .home-title h1:nth-child(2) { top: -20%; left: 33%; }
+    .home-title h1:nth-child(3) { top: 50%; left: 5%; }
+    .home-title h1:nth-child(4) { top: 100%; left: 0%; }
+    .home-title h1:nth-child(5) { top: 70%; left: 25%; }
+    .home-title h1:nth-child(6) { top: 80%; left: 45%; }
+
+    .artist-list {
+      position: absolute;
+    
+      bottom: 50px;
+      right: 50px;
+      list-style: none;
+      text-align: right;
+      max-height: 100%;
+      overflow-y: auto;
+    }
+    .artist-list li {
+      margin: 8px 0;
+      font-size: 1.2vw;
+      font-weight: 500;
+      letter-spacing: 2px;
+      color: #ffffff;
+    }
+
+    /* About Section - 인터랙티브 갤러리 통합 */
+    #about {
+        padding-top: 80px;
+      background: rgba(0, 0, 0, 0.8);
+      position: relative;
+      
+    }
+
+    /* 배경 영상 */
+    .background-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.4;
+    }
+
+    .background-video video {
+      width: 100%;
+      height: 100vh;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    .video-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #fc6e22, #aeff00, #0066ff);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      flex-direction: column;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    #about .section-inner {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      background: rgba(47, 47, 47, 0.1);
+      backdrop-filter: blur(3px);
+      padding: 80px 150px;
+      gap: 100px;
+    }
+
+    /* 이미지 갤러리 - 3열 레이아웃 */
+    .image-gallery {
+      width: 40%;
+      display: grid;
+      grid-template-columns: 2.5fr 2fr;
+      grid-template-rows: repeat(4, 1fr);
+      height: 70vh;
+      perspective: 1000px;
+    }
+
+    .large-item {
+      grid-row: span 2;
+    }
+
+
+    .gallery-item {
+      border: 2px solid transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-10px) rotateX(5deg) rotateY(5deg) scale(1.15);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+      border-color: #aeff00;
+      z-index: 10;
+    }
+
+    .gallery-item.clicked {
+      transform: translateY(-15px) rotateX(10deg) rotateY(10deg) scale(1.2);
+      box-shadow: 0 30px 60px rgba(252, 110, 34, 0.5);
+      border-color: #aeff00;
+      animation: pulse 0.6s ease;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translateY(-15px) rotateX(10deg) rotateY(10deg) scale(1.2); }
+      50% { transform: translateY(-15px) rotateX(10deg) rotateY(10deg) scale(1.25); }
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.4s ease;
+      filter: brightness(0.9) contrast(1.1);
+    }
+
+    .gallery-item:hover img {
+      filter: brightness(1.2) contrast(1.3) saturate(1.4);
+      transform: scale(1.1);
+    }
+
+    .gallery-item.clicked img {
+      filter: brightness(1.3) contrast(1.4) saturate(1.6);
+      transform: scale(1.15);
+    }
+
+    /* 이미지 오버레이 효과 */
+    .gallery-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 30%, rgba(174, 255, 0, 0.3) 50%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .gallery-item:hover::before {
+      opacity: 1;
+    }
+
+    /* 활성화된 이미지 강조 */
+    .gallery-item.active {
+      border-color: #aeff00;
+      box-shadow: 0 0 30px rgba(174, 255, 0, 0.6);
+      transform: scale(1.05);
+    }
+
+    .gallery-item.active img {
+      filter: brightness(1.2) saturate(1.3);
+    }
+
+    /* 마우스 따라다니는 효과 */
+    .gallery-item .hover-glow {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(174, 255, 0, 0.9) 0%, transparent 60%);
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    /* 텍스트 영역 */
+    .about-content {
+      width: 50%;
+      color: #ffffff;
+      line-height: 1.8;
+      font-size: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .about-content h3 {
+      font-size: 2.5rem;
+      color: #ffffff;
+      margin-bottom: 30px;
+      font-weight: 700;
+    }
+
+    .about-content p {
+      margin-bottom: 20px;
+    }
+
+    .highlight-quote {
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 25px 0;
+      padding-left: 20px;
+      border-left: 4px solid #aeff00;
+    }
+
+    /* 반응형 */
+    @media (max-width: 1024px) {
+      #about .section-inner {
+        flex-direction: column;
+        gap: 40px;
+        height: auto;
+      }
+      
+      .image-gallery,
+      .about-content {
+        width: 100%;
+      }
+      
+      .image-gallery {
+        height: 50vh;
+        grid-template-columns: 1fr 1fr;
+      }
+      
+      .about-content {
+        padding-right: 100px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .image-gallery {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(10, 1fr);
+        height: 60vh;
+      }
+      
+      .large-item {
+        grid-row: span 2;
+      }
+      
+      .about-content h3 {
+        font-size: 2rem;
+      }
+      
+      .about-content {
+        font-size: 14px;
+      }
+    }
+
+    #artist { background-color: #f0f0f0; }
+    #artist .section-inner h2 {
+      font-size: 48px;
+      color: #222;
+    }
+
+    #ticket { background-color: #ffffff; }
+    #ticket .section-inner h2 {
+      font-size: 48px;
+      color: #222;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div id="menu-button">☰</div>
+    <div class="logo">
+      <img src="logo.png" alt="HAVE A NICE TRIP 2025">
+    </div>
+    <a href="#ticket" class="ticket-button">TICKET</a>
+  </header>
+
+  <div id="overlay">
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#artist">Artist</a></li>
+        <li><a href="#ticket">Ticket</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <main>
+    <section id="home">
+      <div class="section-inner">
+        <div class="home-content">
+          <div class="home-title">
+            <h1 id="text1" data-image="drum.jpg" data-sound="sound_drum.mp3">LET'S</h1>
+            <h1 id="text2" data-image="piano.jpg" data-sound="sound_piano.mp3">NICE</h1>
+            <h1 id="text3" data-image="stage.jpeg" data-sound="sound_vibe.mp3">VIBE</h1>
+            <h1 id="text4" data-image="nice.jpg" data-sound="sound_nice.mp3">TRIP</h1>
+            <h1 id="text5" data-image="guitar.jpg" data-sound="sound_guitar.mp3">GO</h1>
+            <h1 id="text6" data-image="stage2.jpeg" data-sound="sound_band.mp3">MUSIC</h1>
+          </div>
+
+          <div id="image1" class="hover-image">
+            <img src="drum.jpg" alt="Image 1">
+          </div>
+          <div id="image2" class="hover-image">
+            <img src="piano.jpg" alt="Image 2">
+          </div>
+          <div id="image3" class="hover-image">
+            <img src="stage.jpeg" alt="Image 3">
+          </div>
+          <div id="image4" class="hover-image">
+            <img src="nice.jpg" alt="Image 4">
+          </div>
+          <div id="image5" class="hover-image">
+            <img src="guitar.jpg" alt="Image 5">
+          </div>
+          <div id="image6" class="hover-image">
+            <img src="stage2.jpeg" alt="Image 6">
+          </div>
+        </div>
+
+        <ul class="artist-list">
+          <li>Peach pit</li>
+          <li>THE 1975</li>
+          <li>Etham</li>
+          <li>Summer Salt</li>
+          <li>Lauv</li>
+          <li>Tom Misch</li>
+          <li>Nerd Connection</li>
+          <li>Ha Hyeon Sang</li>
+          <li>Hanroro</li>
+          <li>Slom &amp; Sumin</li>
+          <li>Epic High</li>
+          <li>George</li>
+          <li>Jang Kiha</li>
+          <li>Beenzino</li>
+          <li>MGFF</li>
+          <li>Shinninryu</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="about">
+      <!-- 배경 영상 -->
+      <div class="background-video">
+        <video autoplay muted loop playsinline>
+          <source src="festival-video.mp4" type="video/mp4">
+        </video>
+        
+        <div class="video-placeholder">
+          🎵 배경 영상 위치 🎵
+          <small style="font-size: 16px; margin-top: 10px;"></small>
+        </div>
+      </div>
+
+      <div class="section-inner">
+        <!-- 이미지 갤러리 - 3열 레이아웃 -->
+        <div class="image-gallery">
+          <!-- 첫 번째 열 (큰 이미지) -->
+          <div class="gallery-item large-item">
+            <img src="about7.jpg" alt="페스티벌 메인 무대" />
+            <div class="hover-glow"></div>
+          </div>
+          
+          <div class="gallery-item">
+            <img src="about2.jpg" alt="관중들의 열기" />
+            <div class="hover-glow"></div>
+          </div>
+          <div class="gallery-item">
+            <img src="about3.jpg" alt="아티스트 공연" />
+            <div class="hover-glow"></div>
+          </div>
+          <div class="gallery-item">
+            <img src="about6.jpg" alt="음악과 함께하는 순간" />
+            <div class="hover-glow"></div>
+          </div>
+          <div class="gallery-item">
+            <img src="about5.jpg" alt="밤의 페스티벌" />
+            <div class="hover-glow"></div>
+          </div>
+                    <div class="gallery-item third-column-item">
+            <img src="about4.jpg" alt="특별한 순간들" />
+            <div class="hover-glow"></div>
+          </div>
+          <div class="gallery-item third-column-item">
+            <img src="about1.jpg" alt="음악 속 감동" />
+            <div class="hover-glow"></div>
+          </div>
+        </div>
+
+        <!-- 텍스트 영역 -->
+        <div class="about-content">
+          <h3 style="letter-spacing: 2px; margin-bottom: 20px;">ABOUT</h3>
+          <p>2025년 더욱 특별해진 'HAVE A NICE TRIP', 새로운 여행을 시작합니다.        </p>
+          
+          <div class="highlight-quote">
+            음악으로 연결되는 순간들
+          </div>
+          
+          <p>따뜻한 조명 아래에서 울려 퍼지는 멜로디와 함께, 일상을 벗어나 떠나 보세요.
+          
+          <p>음악이 만들어내는 휴양지 같은 분위기 속에서
+            <br> 소중한 사람들과 함께 나누는 특별한 추억을 선사합니다.
+            <br />
+            <br>
+             올해도 여러분과 함께 떠나고 싶은 아름다운 여행,
+             <br>   
+             'HAVE A NICE TRIP 2025'에서 뵙겠습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="artist">
+      <div class="section-inner">
+        <h2 style="letter-spacing: 2px;">ARTIST</h2>
+      </div>
+    </section>
+
+    <section id="ticket">
+      <div class="section-inner">
+        <h2 style="letter-spacing: 2px;">TICKET</h2>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const menuButton = document.getElementById('menu-button');
+    const overlay = document.getElementById('overlay');
+    let menuOpen = false;
+
+    const texts = document.querySelectorAll('.home-title h1');
+    const audioPlayers = new Map(); 
+
+    texts.forEach(text => {
+      const imageId = 'image' + text.id.replace('text', '');
+      const hoverImage = document.getElementById(imageId);
+      
+      text.addEventListener('mouseenter', () => {
+        stopAllEffects();
+        hoverImage.classList.add('active');
+        
+        const soundFile = text.dataset.sound;
+        if (soundFile) {
+          let audio = audioPlayers.get(text.id);
+          if (!audio) {
+            audio = new Audio(soundFile);
+            audioPlayers.set(text.id, audio);
+          }
+          audio.currentTime = 0;
+          audio.play();
+        }
+      });
+
+      text.addEventListener('mouseleave', () => {
+        hoverImage.classList.remove('active');
+        const audio = audioPlayers.get(text.id);
+        if (audio) {
+          audio.pause();
+        }
+      });
+    });
+
+    function stopAllEffects() {
+      document.querySelectorAll('.hover-image').forEach(img => {
+        img.classList.remove('active');
+      });
+      audioPlayers.forEach(audio => {
+        audio.pause();
+      });
+    }
+
+    menuButton.addEventListener('click', () => {
+      if (!menuOpen) {
+        overlay.style.display = 'flex';
+        menuButton.textContent = '×';  
+        menuOpen = true;
+      } else {
+        overlay.style.display = 'none';
+        menuButton.textContent = '☰'; 
+        menuOpen = false;
+      }
+    });
+
+    document.querySelectorAll('#overlay nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        overlay.style.display = 'none';
+        menuButton.textContent = '☰';
+        menuOpen = false;
+      });
+    });
+
+    // 고급 이미지 갤러리 인터랙션 (About 섹션용)
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    let currentActive = 0;
+
+    // 자동 활성화 순환
+    const autoActivate = () => {
+      galleryItems.forEach(item => item.classList.remove('active'));
+      if (galleryItems[currentActive]) {
+        galleryItems[currentActive].classList.add('active');
+        currentActive = (currentActive + 1) % galleryItems.length;
+      }
+    };
+
+    // 3초마다 자동 활성화
+    setInterval(autoActivate, 3000);
+    autoActivate(); // 초기 실행
+
+    galleryItems.forEach((item, index) => {
+      const img = item.querySelector('img');
+      const hoverGlow = item.querySelector('.hover-glow');
+
+      // 클릭 이벤트 - 임팩트 있는 애니메이션
+      item.addEventListener('click', () => {
+        galleryItems.forEach(otherItem => {
+          otherItem.classList.remove('clicked');
+        });
+        
+        item.classList.add('clicked');
+        
+        setTimeout(() => {
+          item.classList.remove('clicked');
+        }, 600);
+
+        currentActive = index;
+        
+        galleryItems.forEach(otherItem => otherItem.classList.remove('active'));
+        item.classList.add('active');
+      });
+
+      // 마우스 이동 추적 - 글로우 효과
+      item.addEventListener('mousemove', (e) => {
+        const rect = item.getBoundingClientRect();
+        const x = e.clientX - rect.left - 60;
+        const y = e.clientY - rect.top - 60;
+        
+        hoverGlow.style.left = x + 'px';
+        hoverGlow.style.top = y + 'px';
+        hoverGlow.style.opacity = '1';
+      });
+
+      item.addEventListener('mouseleave', () => {
+        hoverGlow.style.opacity = '0';
+      });
+
+      // 마우스 진입 시 3D 기울기 효과
+      item.addEventListener('mousemove', (e) => {
+        const rect = item.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        const rotateX = (e.clientY - centerY) / 10;
+        const rotateY = (centerX - e.clientX) / 10;
+        
+        if (!item.classList.contains('clicked')) {
+          item.style.transform = `translateY(-10px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.15)`;
+        }
+      });
+
+      item.addEventListener('mouseleave', () => {
+        if (!item.classList.contains('clicked')) {
+          item.style.transform = '';
+        }
+      });
+
+      // 더블클릭으로 풀스크린 효과 시뮬레이션
+      item.addEventListener('dblclick', () => {
+        item.style.position = 'fixed';
+        item.style.top = '50%';
+        item.style.left = '50%';
+        item.style.transform = 'translate(-50%, -50%) scale(2.5)';
+        item.style.zIndex = '1000';
+        item.style.transition = 'all 0.5s ease';
+        
+        setTimeout(() => {
+          item.style.position = '';
+          item.style.top = '';
+          item.style.left = '';
+          item.style.transform = '';
+          item.style.zIndex = '';
+          item.style.transition = '';
+        }, 2000);
+      });
+    });
+
+    // 키보드 컨트롤 추가
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        const nextIndex = (currentActive) % galleryItems.length;
+        if (galleryItems[nextIndex]) {
+          galleryItems[nextIndex].click();
+        }
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const prevIndex = (currentActive - 2 + galleryItems.length) % galleryItems.length;
+        if (galleryItems[prevIndex]) {
+          galleryItems[prevIndex].click();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
