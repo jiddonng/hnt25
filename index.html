@@ -140,129 +140,270 @@
     }
 
 
-    #home {
-      background-color: #f9f9f9;
-      background-image: url('images/background.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      position: relative;
-    }
-    #home::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(249, 249, 249, 0.3); 
-      z-index: 1;
-    }
-    .home-content {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      max-width: 1200px;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0 auto;
-      padding: 0 50px;
-    }
-    .home-title {
-      position: relative;
-      display: flex;
-      line-height: 1.5;
-      height: 300px;
-      width: 100%; 
-      margin-top: 100px;
-      margin-bottom: 100px;
-      margin-left: 0px;
-    }
+/* 홈 섹션 완전 재구성 */
+#home {
+  background-color: #f9f9f9;
+  background-image: url('images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
 
-    .hover-image {
-      position: fixed;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-      z-index: 100;
-      display: none;
-    }
+#home::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(249, 249, 249, 0.3); 
+  z-index: 1;
+}
 
-    #image1 {
-      top: 40%;
-      left: 30%;
-      transform: translate(-50%, -50%);
-    }
-    #image2 {
-      top: 50%;
-      right: 20%;
-      transform: translate(0, -50%);
-    }
-    #image3 {
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    #image4 {
-      bottom: 20%;
-      left: 40%;
-      transform: translate(-50%, 0);
-    }
-    #image5 {
-      top: 60%;
-      right: 30%;
-      transform: translate(0, -50%);
-    }
-    #image6 {
-      top: 25%;
-      left: 70%;
-      transform: translate(-50%, -50%);
-    }
+/* 홈 컨텐츠 완전 중앙 정렬 */
+.home-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 90vw;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    .hover-image img {
-      width: 600px;
-      height: 400px;
-      object-fit: contain;
-    }
-    .hover-image.active {
-      opacity: 1;
-      display: block;
-    }
+/* 타이틀 영역 완전 중앙 배치 */
+.home-title {
+  position: relative;
+  width: 800px;
+  height: 400px;
+  margin: 0 auto;
+}
 
-    .home-title h1 {
-      font-size: 9vw;
-      font-weight: 900;
-      letter-spacing: 2px;
-      color: #aeff00;
-      position: absolute;
-      opacity: 0.8;
-    }
-    .home-title h1:nth-child(1) { top: 0; left: 0; }
-    .home-title h1:nth-child(2) { top: -20%; left: 33%; }
-    .home-title h1:nth-child(3) { top: 50%; left: 5%; }
-    .home-title h1:nth-child(4) { top: 100%; left: 0%; }
-    .home-title h1:nth-child(5) { top: 70%; left: 25%; }
-    .home-title h1:nth-child(6) { top: 80%; left: 45%; }
+.home-title h1 {
+  font-size: clamp(60px, 8vw, 120px);
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #aeff00;
+  position: absolute;
+  opacity: 0.8;
+  white-space: nowrap;
+}
 
-    .artist-list {
-      position: absolute;
-    
-      bottom: 50px;
-      right: 50px;
-      list-style: none;
-      text-align: right;
-      max-height: 100%;
-      overflow-y: auto;
-    }
-    .artist-list li {
-      margin: 8px 0;
-      font-size: 1.2vw;
-      font-weight: 500;
-      letter-spacing: 2px;
-      color: #ffffff;
-    }
+/* 텍스트들을 화면 정중앙 기준으로 재배치 */
+.home-title h1:nth-child(1) { 
+  top: 20px; 
+  left: 50px; 
+} /* LET'S */
+
+.home-title h1:nth-child(2) { 
+  top: -10px; 
+  left: 300px; 
+} /* NICE */
+
+.home-title h1:nth-child(3) { 
+  top: 120px; 
+  left: 80px; 
+} /* VIBE */
+
+.home-title h1:nth-child(4) { 
+  top: 200px; 
+  left: 50px; 
+} /* TRIP */
+
+.home-title h1:nth-child(5) { 
+  top: 160px; 
+  left: 250px; 
+} /* GO */
+
+.home-title h1:nth-child(6) { 
+  top: 180px; 
+  left: 400px; 
+} /* MUSIC */
+
+    /* 아티스트 리스트 위치 고정 */
+.artist-list {
+  position: fixed;
+  top: 50%;
+  right: 50px;
+  transform: translateY(-50%);
+  list-style: none;
+  text-align: right;
+  max-height: 60vh;
+  overflow-y: auto;
+  width: 200px;
+  z-index: 10;
+}
+
+.artist-list li {
+  margin: 8px 0;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* 호버 이미지들도 중앙 기준으로 재배치 */
+.hover-image {
+  position: fixed;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 5;
+  display: none;
+}
+
+.hover-image img {
+  width: 500px;
+  height: 350px;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* 이미지 위치를 화면 중앙 기준으로 균형있게 배치 */
+#image1 {
+  top: 30%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+}
+
+#image2 {
+  top: 40%;
+  right: 15%;
+  transform: translate(50%, -50%);
+}
+
+#image3 {
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#image4 {
+  bottom: 30%;
+  left: 30%;
+  transform: translate(-50%, 50%);
+}
+
+#image5 {
+  top: 60%;
+  right: 25%;
+  transform: translate(50%, -50%);
+}
+
+#image6 {
+  top: 15%;
+  right: 35%;
+  transform: translate(50%, -50%);
+}
+
+.hover-image.active {
+  opacity: 1;
+  display: block;
+}
+    /* 태블릿 반응형 */
+@media (max-width: 1200px) {
+  .home-title {
+    width: 700px;
+    height: 350px;
+  }
+  
+  .home-title h1 {
+    font-size: clamp(50px, 7vw, 100px);
+  }
+  
+  .artist-list {
+    right: 30px;
+    width: 180px;
+  }
+  
+  .artist-list li {
+    font-size: 14px;
+  }
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .home-content {
+    width: 95vw;
+    height: 90vh;
+    flex-direction: column;
+  }
+  
+  .home-title {
+    width: 100%;
+    height: 300px;
+    margin-bottom: 30px;
+  }
+  
+  .home-title h1 {
+    font-size: clamp(40px, 12vw, 80px);
+  }
+  
+  /* 모바일에서 텍스트 위치 재조정 */
+  .home-title h1:nth-child(1) { top: 10px; left: 20px; }
+  .home-title h1:nth-child(2) { top: 0px; left: 200px; }
+  .home-title h1:nth-child(3) { top: 80px; left: 40px; }
+  .home-title h1:nth-child(4) { top: 150px; left: 20px; }
+  .home-title h1:nth-child(5) { top: 120px; left: 180px; }
+  .home-title h1:nth-child(6) { top: 140px; left: 250px; }
+  
+  .artist-list {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    text-align: center;
+    width: 100%;
+    max-height: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .artist-list li {
+    font-size: 12px;
+    margin: 5px;
+    background: rgba(0,0,0,0.3);
+    padding: 5px 10px;
+    border-radius: 15px;
+  }
+  
+  /* 모바일에서 이미지 크기 줄이기 */
+  .hover-image img {
+    width: 300px;
+    height: 200px;
+  }
+}
+
+/* 아주 작은 화면 */
+@media (max-width: 480px) {
+  .home-title {
+    height: 250px;
+  }
+  
+  .home-title h1 {
+    font-size: clamp(30px, 10vw, 60px);
+  }
+  
+  .home-title h1:nth-child(1) { top: 10px; left: 10px; }
+  .home-title h1:nth-child(2) { top: 0px; left: 150px; }
+  .home-title h1:nth-child(3) { top: 60px; left: 20px; }
+  .home-title h1:nth-child(4) { top: 120px; left: 10px; }
+  .home-title h1:nth-child(5) { top: 100px; left: 130px; }
+  .home-title h1:nth-child(6) { top: 110px; left: 180px; }
+}
+
 
     /* About Section - 인터랙티브 갤러리 통합 */
     #about {
