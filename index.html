@@ -121,6 +121,7 @@
     }
 
 
+  
     main {
       width: 100%;
       height: 100%;
@@ -161,13 +162,14 @@
     .home-content {
       position: relative;
       z-index: 2;
-      width: 100%;
+      width: 90%;
       max-width: 1200px;
       height: 100%;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       margin: 0 auto;
+      padding: 0 50px;
     }
     .home-title {
       position: relative;
@@ -177,6 +179,7 @@
       width: 200%; 
       margin-top: 100px;
       margin-bottom: 100px;
+      margin-left: -120px;
     }
 
     .hover-image {
@@ -394,7 +397,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(45deg, transparent 30%, rgba(174, 255, 0, 0.3) 50%, transparent 70%);
+      background: rgba(255, 255, 255, 0.9);
       opacity: 0;
       transition: opacity 0.4s ease;
       pointer-events: none;
@@ -507,6 +510,25 @@
     }
     
     /* Artist Section Styles */
+
+    #artist {
+      background: url('images/bg2.jpg') no-repeat center center;
+      background-size: cover;
+      max-width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    #artist::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 0;
+}
+
     .artist-section {
       padding: 40px;
       max-width: 100%;
@@ -527,6 +549,7 @@
       justify-content: center;
       margin-bottom: 20px;
       gap: 15px;
+      z-index: 2;
     }
     .day-tab {
       background: none;
@@ -536,9 +559,10 @@
       cursor: pointer;
       padding: 10px 15px;
       transition: all 0.3s ease;
-      color: #666;
+      color: #888;
       font-family: sans-serif;
       letter-spacing: 1px;
+      z-index: 2;
     }
     .day-tab.active,
     .day-tab:hover {
@@ -578,8 +602,8 @@
   justify-content: center;
   font-weight: bold;
 }
-.carousel-button.prev { left: -25px; } /* -25px에서 10px로 변경 */
-.carousel-button.next { right: -25px; } /* -25px에서 10px로 변경 */
+.carousel-button.prev { left: -25px; } 
+.carousel-button.next { right: -25px; }
     .carousel-wrapper:hover .carousel-button {
       opacity: 1;
     }
@@ -653,7 +677,7 @@
 
     
     .embed-container iframe {
-      width: 100%; height: 200px; border: none; 
+      width: 100%; height: 360px; border: none; 
     }
 
     /* ── 일차별 컨테이너 숨김/표시 ── */
@@ -678,7 +702,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* 검은색 50% 투명도 */
+  background-color: rgba(255, 255, 255, 0.3); /* 검은색 50% 투명도 */
   z-index: 1;
 }
 
@@ -724,7 +748,7 @@
       letter-spacing: 1px;
       background: none;
       border: none;
-      color: #ffffff;
+      color: #888;
     }
 
     .ticket-nav button.active,
@@ -1055,7 +1079,7 @@ text-align: center;  display: inline-block;
           <img src="images/stage.jpeg" alt="Image 3">
           </div>
           <div id="image4" class="hover-image">
-            <img src="images/nice.jpg"
+            <img src="images/nice.jpg" alt="Image 4">
           </div>
           <div id="image5" class="hover-image">
             <img src="images/guitar.jpg" alt="Image 5">
@@ -1182,7 +1206,8 @@ text-align: center;  display: inline-block;
                     <div class="country panel-country"></div>
                     <div class="albums panel-albums"></div>
                   </div>
-                  <img src="images/artist1.jpg" alt="Peach Pit">
+                  <img src="images/artist1.jpg" alt="Peach Pit"
+                  style="object-position: top; object-fit: cover;">
                   <p>Peach Pit</p>
                 </div>
                 <div class="panel">
@@ -1203,7 +1228,8 @@ text-align: center;  display: inline-block;
                <div class="country panel-country"></div>
                <div class="albums panel-albums"></div>
              </div>
-             <img src="images/artist2.jpg" alt="Etham">
+             <img src="images/artist2.jpg" alt="Etham"
+             style="object-position: top; object-fit: cover;">
              <p>Etham</p>
            </div>
            <div class="panel">
@@ -1224,7 +1250,8 @@ text-align: center;  display: inline-block;
                     <div class="country panel-country"></div>
                     <div class="albums panel-albums"></div>
                   </div>
-                  <img src="images/artist3.jpg" alt="Lauv">
+                  <img src="images/artist3.jpg" alt="Lauv"
+                  style="object-position: top; object-fit: cover;">
                   <p>Lauv</p>
                 </div>
                 <div class="panel">
@@ -1245,7 +1272,8 @@ text-align: center;  display: inline-block;
                     <div class="country panel-country"></div>
                     <div class="albums panel-albums"></div>
                   </div>
-                  <img src="images/artist4.jpg" alt="Nerd Connection">
+                  <img src="images/artist4.jpg" alt="Nerd Connection"
+                  style="object-position: center 30%; object-fit: cover;">
                   <p>Nerd Connection</p>
                 </div>
                 <div class="panel">
@@ -1287,7 +1315,9 @@ text-align: center;  display: inline-block;
                     <div class="country panel-country"></div>
                     <div class="albums panel-albums"></div>
                   </div>
-                  <img src="images/artist6.jpg" alt="Epic High">
+                  <img src="images/artist6.jpg" alt="Epic High"
+                  style="object-position: top; object-fit: cover;">
+
                   <p>Epic High</p>
                 </div>
                 <div class="panel">
@@ -1329,7 +1359,7 @@ text-align: center;  display: inline-block;
                     <div class="country panel-country"></div>
                     <div class="albums panel-albums"></div>
                   </div>
-                  <img src="images/artist8.jpg" alt="Hanroro">
+                  <img src="images/artist8.jpg" alt="Hanroro"
                   <p>Hanroro</p>
                 </div>
                 <div class="panel">
@@ -1424,7 +1454,8 @@ text-align: center;  display: inline-block;
                     <div class="country panel-country"></div>
                     <div class="albums panel-albums"></div>
                   </div>
-                  <img src="images/artist12.jpg" alt="Shinninryu">
+                  <img src="images/artist12.jpg" alt="Shinninryu"
+                  style="object-position: center 30%; object-fit: cover;">
                   <p>Shinninryu</p>
                 </div>
                 <div class="panel">
@@ -1445,7 +1476,9 @@ text-align: center;  display: inline-block;
                     <div class="country panel-country"></div>
                     <div class="albums panel-albums"></div>
                   </div>
-                  <img src="images/artist13.jpg" alt="George">
+                  <img src="images/artist13.jpg" alt="George"
+                  style="object-position: center 43%; object-fit: cover;">
+
                   <p>George</p>
                 </div>
                 <div class="panel">
@@ -1456,7 +1489,7 @@ text-align: center;  display: inline-block;
               </div>
 
               <div class="artist-item"
-                   data-spotify-id="37i9dQZF1DZ06evO0w5OCL"
+                   data-spotify-id="37i9dQZF1DZ06evO4zppUA"
                    data-artist="Beenzino"
                    data-country="Korea"
                    data-albums="24:26 (2012);Up All Night (2014);The Blind (2016)">
@@ -1466,7 +1499,8 @@ text-align: center;  display: inline-block;
                     <div class="country panel-country"></div>
                     <div class="albums panel-albums"></div>
                   </div>
-                  <img src="images/artist14.jpg" alt="Beenzino">
+                  <img src="images/artist14.jpg" alt="Beenzino"
+                  style="object-position: center 30%; object-fit: cover;">
                   <p>Beenzino</p>
                 </div>
                 <div class="panel">
@@ -1487,7 +1521,8 @@ text-align: center;  display: inline-block;
                     <div class="country panel-country"></div>
                     <div class="albums panel-albums"></div>
                   </div>
-                  <img src="images/artist15.jpg" alt="Slom & Sumin">
+                  <img src="images/artist15.jpg" alt="Slom & Sumin"
+                  style="object-position: top; object-fit: cover;">
                   <p>Slom & Sumin</p>
                 </div>
                 <div class="panel">
@@ -1508,7 +1543,8 @@ text-align: center;  display: inline-block;
                     <div class="country panel-country"></div>
                     <div class="albums panel-albums"></div>
                   </div>
-                  <img src="images/artist16.jpg" alt="MGFF">
+                  <img src="images/artist16.jpg" alt="MGFF"
+                  style="object-position: center 30%; object-fit: cover;">
                   <p>MGFF</p>
                 </div>
                 <div class="panel">
